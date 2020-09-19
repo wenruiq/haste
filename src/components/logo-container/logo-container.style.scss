@@ -1,0 +1,11 @@
+@import '../../scss/config';
+
+.logo-container {
+  background-color: $main-color;
+  width: 100%;
+
+  img {
+    width: 206px;
+    height: 60px;
+  }
+}

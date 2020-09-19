@@ -1,0 +1,13 @@
+@import '../../scss/config';
+
+.header {
+  background-color: $main-color;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .wrapper {
+    max-width: 1200px;
+  }
+}
