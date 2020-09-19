@@ -6,7 +6,7 @@ const SavedItems = ({ toggleDropdown }) => (
 	<SavedItemsContainer onClick={toggleDropdown}>
 		<SavedItemsIcon />
 		{/* See if want to have this counter, change to prop later if using */}
-		<ItemCountContainer>5</ItemCountContainer>
+		<ItemCountContainer>8</ItemCountContainer>
 	</SavedItemsContainer>
 );
 

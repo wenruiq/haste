@@ -19,10 +19,10 @@ export const SavedItemsIcon = styled(BookmarksIcon)`
 `;
 
 export const ItemCountContainer = styled.span`
-	color: #333;
+	color: #3579ea;
 	position: absolute;
 	font-size: 15px;
 	font-weight: bold;
 	bottom: 12px;
-	left: 20px;
+	left: 19.5px;
 `;
