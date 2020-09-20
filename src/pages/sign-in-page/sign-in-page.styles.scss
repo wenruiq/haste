@@ -1,8 +1,14 @@
 @import '../../scss/config';
 
-.sign-in-sign-up-container{
-  width: $website-width;
-  display: flex;
-  justify-content: space-between;
-  margin: 30px auto;
+.sign-in-sign-up-wrapper {
+  background-color: $light-color;
+  padding-top: 20px;
+  height: calc(100vh - 75px);
+
+  .sign-in-sign-up-container {
+    width: $website-width;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+  }
 }

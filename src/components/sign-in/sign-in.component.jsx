@@ -1,6 +1,9 @@
 import React from 'react';
 
 import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-button/custom-button.component';
+
+import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
   state = { email: '', password: '' };
@@ -17,13 +20,13 @@ class SignIn extends React.Component {
         <div className="sign-in-title">Already have an account?</div>
         <span>Sign in with your email and password</span>
 
-        <form>
+        <form className="form-card">
           <FormInput
             name="email"
             type="email"
             handleChange={this.handleChange}
             value={this.state.email}
-            label="email"
+            label="Email"
             required
           />
           <FormInput
@@ -31,9 +34,13 @@ class SignIn extends React.Component {
             type="password"
             handleChange={this.handleChange}
             value={this.state.password}
-            label="password"
+            label="Password"
             required
           />
+          <div className="buttons">
+            <CustomButton type="submit">SIGN IN</CustomButton>
+            <CustomButton isGoogleSignIn>SIGN IN WITH GOOGLE</CustomButton>
+          </div>
         </form>
       </div>
     );

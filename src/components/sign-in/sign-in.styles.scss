@@ -1,0 +1,15 @@
+@import '../../scss/config';
+
+.form-card {
+  background-color: #fff;
+  width: 380px;
+  border-top: 2px solid $main-color;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  
+  .buttons{
+    display: flex;
+    justify-content: space-between;
+  }
+}

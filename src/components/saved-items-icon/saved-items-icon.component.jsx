@@ -1,7 +1,6 @@
 import React from 'react';
 
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
-import { sizing } from '@material-ui/system';
 import './saved-items-icon.styles.scss';
 
 const SavedItemsIcon = ({ toggleDropdown }) => (
