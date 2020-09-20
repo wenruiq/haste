@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { SavedItemsContainer, SavedItemsIcon, ItemCountContainer } from './saved-items-icon.styles.jsx';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import './saved-items-icon.styles.scss';
 
 const SavedItems = ({ toggleDropdown }) => (
-	<SavedItemsContainer onClick={toggleDropdown}>
-		<SavedItemsIcon />
-		{/* See if want to have this counter, change to prop later if using */}
-		<ItemCountContainer>8</ItemCountContainer>
-	</SavedItemsContainer>
+	<div className='saved-items-container' onClick={toggleDropdown}>
+		<div className='icon-container'>
+			<BookmarksIcon className='saved-items-icon' />
+			<span className='item-count-container'>8</span>
+		</div>
+	</div>
 );
 
 export default SavedItems;

@@ -16,7 +16,7 @@ class SearchBar extends Component {
 
 	render() {
 		return (
-			<form className='search' onSubmit={this.handleSubmit}>
+			<form className='search-bar' onSubmit={this.handleSubmit}>
 				<div className='search-input'>
 					<input placeholder='Search in Haste' />
 					<button type='submit' className='search-button'>

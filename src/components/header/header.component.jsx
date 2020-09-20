@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LogoContainer from '../logo-container/logo-container.component';
-import Search from '../search-bar/search-bar.component';
+import SearchBar from '../search-bar/search-bar.component';
 import HeaderIconsContainer from '../header-icons-container/header-icons-container.component';
 
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ const Header = () => (
 			<Link to='/'>
 				<LogoContainer />
 			</Link>
-			<Search />
+			<SearchBar />
 			<HeaderIconsContainer />
 		</div>
 	</div>
