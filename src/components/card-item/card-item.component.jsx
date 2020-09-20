@@ -18,8 +18,18 @@ const CardItem = () => (
 
 			{/* Item Pic container - 50% */}
 			<div className='item-pic-container'>
-				<a href='https://www.google.com.sg' target='_blank'>
+				<a>
 					<img src={require('../../assets/test-item-image.jpg')}></img>
+				</a>
+			</div>
+
+			<div className='item-pic-buttons'>
+				{/* //! Change to Link & API link respectively in the future*/}
+				<a className='button' href='https://www.google.com.sg' target='_blank'>
+					Find Similar
+				</a>
+				<a className='button' href='https://www.google.com.sg' target='_blank'>
+					View Details
 				</a>
 			</div>
 

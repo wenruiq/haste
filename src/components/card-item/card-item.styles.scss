@@ -3,14 +3,12 @@
 .card-item-container {
 	flex-basis: 23%;
 	transition: 0.1s;
-	padding: 2px 5px;
 	width: 320px;
 	height: 400px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	// Temporary background color to make card visible
-	// background-color: rgba($main-color, 0.1);
+	position: relative;
 
 	&:hover {
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -24,6 +22,8 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+
+	margin: 2px 5px;
 
 	.brand-and-save-container {
 		flex-basis: 7%;
@@ -51,6 +51,53 @@
 			height: 33px;
 			cursor: pointer;
 		}
+	}
+
+	.item-pic-buttons {
+		width: 100%;
+		height: 5 5%;
+		opacity: 0;
+		transition: 0.5s ease;
+		backface-visibility: hidden;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		padding-bottom: 30px;
+
+		//! Temporary button CSS, change to be aligned with other buttons in app in the future
+		.button {
+			width: 65%;
+			text-align: center;
+			display: inline-block;
+			box-sizing: border-box;
+			padding: 15px 10px;
+			margin: 15px auto;
+			font-size: 22px;
+			transition: all 0.5s;
+			cursor: pointer;
+			color: #fff;
+			text-decoration: none;
+			background-color: rgba($main-color, 0.85);
+
+			&:hover {
+				background-color: $main-color;
+			}
+		}
+	}
+
+	&:hover .item-pic-container {
+		opacity: 0.2;
+	}
+
+	&:hover .item-pic-buttons {
+		opacity: 1;
+		color: white;
 	}
 
 	.item-pic-container {
@@ -101,6 +148,7 @@
 
 		// CSS for item's price
 		.item-price {
+			color: $main-color;
 			flex-basis: 15%;
 			font-size: 23px;
 			padding-left: 10px;
