@@ -1,8 +1,8 @@
 @import '../../scss/App.scss';
 
 .home-page-container {
-	max-width: $max-width;
-	display: flex;
-	margin: 10px auto;
-	flex-direction: column;
+  max-width: $website-width;
+  display: flex;
+  margin: 10px auto;
+  flex-direction: column;
 }
