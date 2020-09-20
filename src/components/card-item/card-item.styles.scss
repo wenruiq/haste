@@ -2,11 +2,11 @@
 
 .card-item-container {
 	flex-basis: 23%;
-	// background-color: aquamarine;
 	transition: 0.1s;
 	padding: 2px 16px;
 	width: 320px;
 	height: 400px;
+	// Temporary background color to make card visible
 	background-color: rgba($main-color, 0.1);
 
 	.card-item {
@@ -15,5 +15,13 @@
 
 	&:hover {
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	}
+}
+
+// For future handling of responsiveness
+@media (max-width: 1100px) {
+	.card-item-container {
+		flex-basis: 38%;
+		margin: 15px 5px;
 	}
 }

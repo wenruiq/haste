@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 
 import SearchIcon from '@material-ui/icons/Search';
 
-import './search-bar.style.scss';
+import './search-bar.styles.scss';
 
 class SearchBar extends Component {
 	handleSubmit = async (event) => {
 		// event.preventDefault();
-
 		// Code to handle when user hits search
 	};
 
@@ -17,14 +16,14 @@ class SearchBar extends Component {
 
 	render() {
 		return (
-      <form className='search' onSubmit={this.handleSubmit}>
-        <div className='search-input'>
-          <input placeholder="Search in Haste"/>
-          <button type='submit' className='search-button'>
-            <SearchIcon className="search-icon"/>
-          </button>
-        </div>
-      </form>
+			<form className='search' onSubmit={this.handleSubmit}>
+				<div className='search-input'>
+					<input placeholder='Search in Haste' />
+					<button type='submit' className='search-button'>
+						<SearchIcon className='search-icon' />
+					</button>
+				</div>
+			</form>
 		);
 	}
 }

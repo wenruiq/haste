@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './logo-container.style.scss';
+import './logo-container.styles.scss';
 
 const LogoContainer = () => (
   <div className="logo-container">

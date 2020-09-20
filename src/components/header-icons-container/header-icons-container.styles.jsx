@@ -6,9 +6,12 @@ export const IconsContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+
+	${'' /*  To be improved: responsive header*/}
+	@media (max-width: 1100px) {
+		display: none;
+	}
 `;
-
-
 
 export const NameContainer = styled.div`
 	text-align: center;

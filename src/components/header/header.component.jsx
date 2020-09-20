@@ -6,7 +6,7 @@ import HeaderIconsContainer from '../header-icons-container/header-icons-contain
 
 import { Link } from 'react-router-dom';
 
-import './header.style.scss';
+import './header.styles.scss';
 
 const Header = () => (
 	<div className='header'>
@@ -15,7 +15,7 @@ const Header = () => (
 				<LogoContainer />
 			</Link>
 			<Search />
-      <HeaderIconsContainer/>
+			<HeaderIconsContainer />
 		</div>
 	</div>
 );

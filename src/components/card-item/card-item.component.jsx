@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './card-item.component.scss';
+import './card-item.styles.scss';
 
 const CardItem = () => (
 	<div className='card-item-container'>

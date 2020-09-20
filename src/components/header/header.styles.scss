@@ -8,9 +8,9 @@
 	justify-content: center;
 
 	.wrapper {
-		width: 1200px;
+		width: $max-width;
 		display: flex;
-    align-items: center;
+		align-items: center;
 		justify-content: space-between;
 	}
 }
