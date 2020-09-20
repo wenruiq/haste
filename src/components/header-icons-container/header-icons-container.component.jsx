@@ -12,7 +12,7 @@ const HeaderIconsContainer = ({ currentUser, hidden }) => (
 	<IconsContainer>
 		{/* Use currentUser ? (render saved & logout ) : (render login) */}
 		<SavedItems />
-		<NameContainer>Welcome, Lifu</NameContainer>
+		<NameContainer>Welcome, Dave</NameContainer>
 		<OptionsDivider>|</OptionsDivider>
 		<OptionLink to='/signin'>SIGN OUT</OptionLink>
 	</IconsContainer>

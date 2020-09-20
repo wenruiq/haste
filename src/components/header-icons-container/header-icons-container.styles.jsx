@@ -5,7 +5,7 @@ export const IconsContainer = styled.div`
 	flex-basis: 30%;
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: space-between;
 
 	${'' /*  To be improved: responsive header*/}
 	@media (max-width: 1100px) {
@@ -15,10 +15,11 @@ export const IconsContainer = styled.div`
 
 export const NameContainer = styled.div`
 	text-align: center;
+	flex-basis: 60%;
 	text-transform: uppercase;
 	font-size: 18px;
-	flex-basis: 50%;
 	color: white;
+	cursor: default;
 `;
 
 export const OptionsDivider = styled.div`
@@ -26,14 +27,15 @@ export const OptionsDivider = styled.div`
 	display: flex;
 	font-size: 20px;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	color: white;
 	padding-bottom: 5px;
+	cursor: default;
 `;
 
 export const OptionLink = styled(Link)`
-	text-align: right;
-	flex-basis: 30%;
+	text-align: center;
+	flex-basis: 25%;
 	color: white;
 	font-size: 18px;
 	text-decoration: none;
