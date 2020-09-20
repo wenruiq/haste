@@ -3,18 +3,104 @@
 .card-item-container {
 	flex-basis: 23%;
 	transition: 0.1s;
-	padding: 2px 16px;
+	padding: 2px 5px;
 	width: 320px;
 	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	// Temporary background color to make card visible
-	background-color: rgba($main-color, 0.1);
-
-	.card-item {
-		padding: 10px 5px;
-	}
+	// background-color: rgba($main-color, 0.1);
 
 	&:hover {
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	}
+}
+
+.card-item {
+	width: 98%;
+	height: 98%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	.brand-and-save-container {
+		flex-basis: 7%;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		// Handle logo size
+		.brand-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			img {
+				object-fit: cover;
+				width: 80px;
+			}
+		}
+
+		.save-item-icon {
+			color: $main-color;
+			width: 33px;
+			height: 33px;
+		}
+	}
+
+	.item-pic-container {
+		flex-basis: 75%;
+		display: flex;
+		justify-content: center;
+
+		a {
+			display: flex;
+			justify-content: center;
+			img {
+				height: 90%;
+				width: 90%;
+				object-fit: cover;
+			}
+		}
+	}
+
+	.item-details-container {
+		flex-basis: 18%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		// CSS for 
+		.item-description-container {
+			flex-basis: 85%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			// CSS for item big description
+			.item-description-primary {
+				flex-basis: 50%;
+				font-size: 20px;
+				padding-bottom: 5px;
+			}
+
+			// CSS for item small description
+			.item-description-secondary {
+				padding-bottom: 5px;
+				flex-basis: 50%;
+				font-size: 12px;
+			}
+		}
+
+		// CSS for item's price
+		.item-price {
+			flex-basis: 15%;
+			font-size: 23px;
+			padding-left: 10px;
+		}
 	}
 }
 
