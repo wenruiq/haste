@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SavedItemsContainer, SavedItemsIcon, ItemCountContainer } from './saved-items.style.jsx';
+import { SavedItemsContainer, SavedItemsIcon, ItemCountContainer } from './saved-items-icon.style.jsx';
 
 const SavedItems = ({ toggleDropdown }) => (
 	<SavedItemsContainer onClick={toggleDropdown}>

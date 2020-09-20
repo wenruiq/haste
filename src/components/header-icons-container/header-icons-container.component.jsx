@@ -1,5 +1,5 @@
 import React from 'react';
-import SavedItems from '../saved-items/saved-items.component';
+import SavedItems from '../saved-items-icon/saved-items-icon.component';
 
 import {
 	IconsContainer,
