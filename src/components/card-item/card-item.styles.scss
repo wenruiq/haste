@@ -48,6 +48,7 @@
 			color: $main-color;
 			width: 33px;
 			height: 33px;
+			cursor: pointer;
 		}
 	}
 
@@ -73,7 +74,7 @@
 		align-items: center;
 		justify-content: space-between;
 
-		// CSS for 
+		// CSS for
 		.item-description-container {
 			flex-basis: 85%;
 			display: flex;

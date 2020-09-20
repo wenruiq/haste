@@ -2,7 +2,7 @@ import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import styled from 'styled-components';
 
 export const SavedItemsContainer = styled.div`
-	flex-basis: 15%;
+	flex-basis: 5%;
 	width: 45px;
 	height: 45px;
 	position: relative;
@@ -13,8 +13,8 @@ export const SavedItemsContainer = styled.div`
 `;
 
 export const SavedItemsIcon = styled(BookmarksIcon)`
-	width: 35px;
-	height: 35px;
+	width: 41px;
+	height: 41px;
 	color: white;
 `;
 
@@ -23,6 +23,6 @@ export const ItemCountContainer = styled.span`
 	position: absolute;
 	font-size: 15px;
 	font-weight: bold;
-	bottom: 12px;
-	left: 19.5px;
+	bottom: 11.5px;
+	left: 13px;
 `;
