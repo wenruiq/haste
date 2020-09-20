@@ -7,7 +7,7 @@ import './scss/App.scss';
 
 import Header from './components/header/header.component';
 import HomePage from './pages/home-page/home-page.component';
-import LoginPage from './pages/login-page/login-page.component';
+import SignInPage from './pages/sign-in-page/sign-in-page.component';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
@@ -51,7 +51,7 @@ class App extends React.Component {
               this.props.currentUser ? (
                 <Redirect to="/" />
               ) : (
-                <LoginPage />
+                <SignInPage />
               )
             }
           />

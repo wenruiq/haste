@@ -1,31 +1,32 @@
-@import '../../scss/App.scss';
+@import '../../scss/config.scss';
 
 .saved-items-container {
-	flex-basis: 10%;
-	width: 90px;
-	height: 90px;
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-}
+  width: 90px;
+  height: 90px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 35px;
+  min-width: 35px;
 
-.icon-container {
-	height: 100%;
-	width: 100%;
+  .icon-container {
+    height: 100%;
+    width: 100%;
 
-	.saved-items-icon {
-		height: 100%;
-		width: 100%;
-		color: white;
-	}
-	.item-count-container {
-		color: $main-color;
-		position: absolute;
-		font-size: 15px;
-		font-weight: bold;
-		bottom: 34px;
-		left: 11px;
-	}
+    .saved-items-icon {
+      height: 100%;
+      width: 100%;
+      color: white;
+    }
+    .item-count-container {
+      color: $main-color;
+      position: absolute;
+      font-size: 15px;
+      font-weight: bold;
+      bottom: 34px;
+      left: 11px;
+    }
+  }
 }

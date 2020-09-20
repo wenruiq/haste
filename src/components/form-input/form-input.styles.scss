@@ -1,0 +1,8 @@
+@import '../../scss/config';
+@import '../../scss/utilities';
+
+@mixin shrinkLabel{
+  top: -14px;
+  font-size: 12px;
+  
+}

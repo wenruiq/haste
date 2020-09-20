@@ -1,4 +1,4 @@
-@import '../../scss/App.scss';
+@import '../../scss/config';
 
 .card-item-container {
 	flex-basis: 23%;
@@ -8,7 +8,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	position: relative;
+  position: relative;
+  background-color: white;
 
 	&:hover {
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
