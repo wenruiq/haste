@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './homepage.styles.scss';
+import './home-page.styles.scss';
 
 import DisplayBoxHeading from '../../components/display-box-heading/display-box-heading.component';
 
