@@ -15,6 +15,10 @@
   &:hover {
     background-color: $main-color-medium;
   }
+  
+  &:focus{
+    outline: 0;
+  }
 
   &.google-sign-in {
     background-color: #4285f4;
@@ -24,12 +28,25 @@
       background-color: #357ae8;
       border: none;
     }
+    
+    &:focus{
+      outline: 0;
+    }
   }
   
   &.sign-up-button{
     background-color: $main-color-light;
     color: $main-color-dark;
     margin-top: 10px;
+    
+    &:hover{
+      background-color: $main-color-medium;
+      color: $main-color-light;
+    }
+    
+    &:focus{
+      outline: 0;
+    }
   }
 
 }

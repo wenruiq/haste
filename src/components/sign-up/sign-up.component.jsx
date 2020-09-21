@@ -15,6 +15,40 @@ class SignIn extends React.Component {
     confirmPassword: '',
   };
 
+  handleSubmit = async event => {
+    event.preventDefault();
+
+    const { displayName, email, password, confirmPassword } = this.state;
+
+    if (password !== confirmPassword) {
+      alert("password don't match");
+      return;
+    }
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      await createUserProfileDocument(user, { displayName });
+
+      this.setState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleChange = event => {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: value });
+  };
+
   render() {
     return (
       <div className="sign-up-container">
@@ -60,7 +94,9 @@ class SignIn extends React.Component {
             isSignUpInput
             required
           />
-          <CustomButton type="submit" isSignUpButton>SIGN UP</CustomButton>
+          <CustomButton type="submit" isSignUpButton>
+            SIGN UP
+          </CustomButton>
         </form>
       </div>
     );
