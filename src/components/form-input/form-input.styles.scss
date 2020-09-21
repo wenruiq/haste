@@ -13,9 +13,9 @@
   .form-input {
     background: none;
     background-color: none;
-    color: $main-color;
+    color: $main-color-dark;
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: 10px 10px 5px 5px;
     display: block;
     width: 100%;
     border: none;
@@ -34,8 +34,13 @@
 
   .form-input-sign-up {
     border-bottom: 2px solid $main-color-light;
-    margin: 25px 0;
-    color: $main-color-light;
+    margin: 6px 0;
+    color: #fff;
+    
+    &:focus ~ .form-input-label {
+      @include shrinkLabel();
+      top: -14px;
+    }
   }
 
   input[type='password'] {
@@ -49,7 +54,7 @@
     position: absolute;
     pointer-events: none;
     left: 5px;
-    top: 38px;
+    top: 36px;
     transition: 300ms ease all;
 
     &.shrink {
@@ -59,5 +64,11 @@
 
   .form-input-label-sign-up {
     color: $main-color-light;
+    top: 17px;
+    
+    &.shrink {
+      @include shrinkLabel();
+      top: -14px;
+    }
   }
 }

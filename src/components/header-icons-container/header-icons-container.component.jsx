@@ -14,7 +14,7 @@ const HeaderIconsContainer = ({ currentUser, hidden }) => (
   <div className="header-icons-container">
     {currentUser ? <SavedItemsIcon /> : null}
     <div className="welcome-message">
-      {currentUser ? `Welcome, Benjamin` : `Welcome to Haste !`}
+      {currentUser ? `Welcome, ${currentUser.displayName}` : `Welcome to Haste !`}
     </div>
     <div className="divider"></div>
     {currentUser ? (

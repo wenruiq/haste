@@ -2,25 +2,25 @@
 
 .sign-up-container {
   flex-basis: 45%;
+
   .sign-up-title {
-    margin-left: 5px;
-    font-size: 1.5rem;
+    margin-left: 10px;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: $dark-color;
+    color: $main-color-dark;
   }
 
   .sign-up-sub-title {
-    margin-left: 5px;
-    color: $dark-color;
+    margin-left: 10px;
+    color: $main-color-dark;
   }
 
   .sign-up-form-card {
     background-color: $main-color-dark;
     display: flex;
     flex-direction: column;
-    padding: 15px 50px 40px 50px;
+    padding: 30px 50px 40px 50px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
-    border-top: 2px solid $main-color-dark;
   }
 }
