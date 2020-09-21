@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-
-export default axios.create({
-  baseURL: 'haste-test-api.herokuapp.com/products'
+export const GetFromBestBuyApi = axios.create({
+	baseURL: 'http://haste-test-api.herokuapp.com/',
 });
-

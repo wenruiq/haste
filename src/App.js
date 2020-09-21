@@ -7,6 +7,7 @@ import './scss/App.scss';
 
 import Header from './components/header/header.component';
 import HomePage from './pages/home-page/home-page.component';
+import SearchPage from './pages/search-page/search-page.component';
 import SignInPage from './pages/sign-in-page/sign-in-page.component';
 import SavedPage from './pages/saved-page/saved-page.component';
 
@@ -45,6 +46,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/search" component={SearchPage}/>
           <Route
             exact
             path="/signin"

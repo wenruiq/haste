@@ -1,3 +1,9 @@
-.search-page {
-  //
+@import '../../scss/config';
+
+.search-page-container {
+	max-width: $website-width;
+	display: flex;
+	margin: 10px auto;
+	flex-direction: column;
 }
+
