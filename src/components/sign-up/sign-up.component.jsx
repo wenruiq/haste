@@ -57,7 +57,7 @@ class SignIn extends React.Component {
           Sign up with your email and password
         </span>
 
-        <form className="sign-up-form-card">
+        <form className="sign-up-form-card" onSubmit={this.handleSubmit}>
           <FormInput
             name="displayName"
             type="text"
