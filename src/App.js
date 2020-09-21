@@ -8,6 +8,7 @@ import './scss/App.scss';
 import Header from './components/header/header.component';
 import HomePage from './pages/home-page/home-page.component';
 import SignInPage from './pages/sign-in-page/sign-in-page.component';
+import SavedPage from './pages/saved-page/saved-page.component';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
@@ -48,13 +49,10 @@ class App extends React.Component {
             exact
             path="/signin"
             render={() =>
-              this.props.currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <SignInPage />
-              )
+              this.props.currentUser ? <Redirect to="/" /> : <SignInPage />
             }
           />
+          <Route exact path="/saved" component={SavedPage} />
         </Switch>
       </div>
     );

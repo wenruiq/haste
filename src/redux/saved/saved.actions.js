@@ -19,6 +19,7 @@ export const addSavedFailure = errorMessage => ({
 export const addSavedStartAsync = (userID, product) => {
   return dispatch => {
     const savedRef = firestore.collection(`users/${userID}/saved`);
+    console.log(product);
     dispatch(addSavedStart());
 
     savedRef
@@ -31,3 +32,5 @@ export const addSavedStartAsync = (userID, product) => {
       .catch(error => dispatch(addSavedFailure(error.message)));
   };
 };
+
+// todo: fetchSaved actions...
