@@ -1,15 +1,37 @@
 @import '../../scss/config';
 
-.form-card {
-  background-color: #fff;
-  width: 380px;
-  border-top: 2px solid $main-color;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
+.sign-in-container{
+  flex-basis: 45%;
   
-  .buttons{
+  .sign-in-title{
+    margin-left: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .sign-in-sub-title{
+    margin-left: 5px;
+  }
+  
+  .sign-in-form-card {
+    background-color: #fff;
+    border-top: 2px solid $main-color;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    padding: 15px 50px 40px 50px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-right: 50px;
+    
+    .buttons{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 120px;
+      margin-top: 10px;
+    }
   }
 }
+
+
+

@@ -18,9 +18,9 @@ class SignIn extends React.Component {
     return (
       <div className="sign-in-container">
         <div className="sign-in-title">Already have an account?</div>
-        <span>Sign in with your email and password</span>
+        <span className="sign-in-sub-title">Sign in with your email and password</span>
 
-        <form className="form-card">
+        <form className="sign-in-form-card">
           <FormInput
             name="email"
             type="email"

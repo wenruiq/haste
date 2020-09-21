@@ -1,0 +1,35 @@
+@import '../../scss/config';
+
+.custom-button {
+  height: 50px;
+  letter-spacing: 0.5px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  background-color: $main-color-dark;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+
+  &:hover {
+    background-color: $main-color-medium;
+  }
+
+  &.google-sign-in {
+    background-color: #4285f4;
+    color: white;
+
+    &:hover {
+      background-color: #357ae8;
+      border: none;
+    }
+  }
+  
+  &.sign-up-button{
+    background-color: $main-color-light;
+    color: $main-color-dark;
+    margin-top: 10px;
+  }
+
+}
