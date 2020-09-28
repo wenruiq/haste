@@ -10,9 +10,8 @@ import SearchResultsDisplay from '../../components/search-results-display/search
 //* Redux Import
 import { fetchSearchStartAsync } from '../../redux/search/search.actions';
 import {
-	selectIsSearchFetching,
-	selectProductsOrganized,
-	selectProductsCount,
+	selectIsQuerySearchFetching,
+	selectQueryProductsCount,
 } from '../../redux/search/search.selectors';
 
 //* Import styling
@@ -29,25 +28,24 @@ class SearchPage extends Component {
 	}
 
 	render() {
-		const { isSearchFetching, productsCount } = this.props;
+		const { selectIsQuerySearchFetching, productsCount } = this.props;
 
 		return (
 			<div className='search-page-container'>
 				{productsCount ? (
 					<DisplayBoxHeading title={`${productsCount} products found`} />
 				) : (
-					isSearchFetching || <DisplayBoxHeading title='No Such Products Found' />
+					selectIsQuerySearchFetching || <DisplayBoxHeading title='No Such Products Found' />
 				)}
-				<SearchResultsDisplayWithSpinner isLoading={isSearchFetching} />
+				<SearchResultsDisplayWithSpinner type='query' isLoading={selectIsQuerySearchFetching} />
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = createStructuredSelector({
-	isSearchFetching: selectIsSearchFetching,
-	products: selectProductsOrganized,
-	productsCount: selectProductsCount,
+	selectIsQuerySearchFetching,
+	productsCount: selectQueryProductsCount,
 });
 
 const mapDispatchToProps = (dispatch) => ({

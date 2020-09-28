@@ -8,12 +8,16 @@ import CardItem from '../../components/card-item/card-item.component';
 
 import './search-results-display.styles.scss';
 
-const SearchResultsDisplay = ({ products }) => {
+const SearchResultsDisplay = ({ products, type }) => {
+	const categories = ['query', 'recommended', 'popular'];
+
+	const selectedProducts = products[categories.indexOf(type)];
+
 	return (
 		<div className='search-results-display'>
-			{products.map((product) => (
-				<CardItem key={product.id} {...product} />
-			))}
+			{selectedProducts
+				? selectedProducts.map((product) => <CardItem key={product.id} {...product} />)
+				: ''}
 		</div>
 	);
 };
