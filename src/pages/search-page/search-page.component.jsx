@@ -19,7 +19,7 @@ import {
 import './search-page.styles.scss';
 
 //* Wrap SearchResultsDisplay with Spinner HOC
-const SearchResultsDisplayWithLoader = WithSpinner(SearchResultsDisplay);
+const SearchResultsDisplayWithSpinner = WithSpinner(SearchResultsDisplay);
 
 class SearchPage extends Component {
 	// fetch data from API
@@ -29,7 +29,7 @@ class SearchPage extends Component {
 	}
 
 	render() {
-		const { isSearchFetching, products, productsCount } = this.props;
+		const { isSearchFetching, productsCount } = this.props;
 
 		return (
 			<div className='search-page-container'>
@@ -38,7 +38,7 @@ class SearchPage extends Component {
 				) : (
 					isSearchFetching || <DisplayBoxHeading title='No Such Products Found' />
 				)}
-				<SearchResultsDisplayWithLoader isLoading={isSearchFetching} />
+				<SearchResultsDisplayWithSpinner isLoading={isSearchFetching} />
 			</div>
 		);
 	}

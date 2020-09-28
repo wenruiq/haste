@@ -6,9 +6,12 @@ import './search-bar.styles.scss';
 
 class SearchBar extends Component {
 	// TODO: Link Search onSubmit with search results
-	handleSubmit = async (event) => {
+	handleSubmit = (event) => {
 		// event.preventDefault();
 		// Code to handle when user hits search
+
+		// dispatch event input to search page
+		// Add query to search state
 	};
 
 	handleChange = (event) => {

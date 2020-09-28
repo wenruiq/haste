@@ -33,7 +33,7 @@ export const selectIsSearchFetching = createSelector([selectSearch], (search) =>
 // TODO: Find the optimal n for title & description
 //* filter product primary description
 const limitDescription = (description, limit = 29) => {
-	const shortenedDescription = [];
+	// const shortenedDescription = [];
 
 	if (description.length > limit) {
 		return description.substring(0, limit - 5) + ' ...';
