@@ -40,10 +40,9 @@ class CardItem extends React.Component {
 					{/* Item Pic container - 50% */}
 					<div className='item-pic-container'>
 						<a href='/'>
-							{/* //TODO: Image currently blocked by CORS, dunno how to handle */}
 							<img
-								src={require('../../assets/test-item-image.jpg')}
-								// src={this.props.url}
+								// src={require('../../assets/test-item-image.jpg')}
+								src={this.props.image}
 								alt='placeholder-alt-change-later'
 							></img>
 						</a>

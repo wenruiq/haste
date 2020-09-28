@@ -114,7 +114,9 @@
 			img {
 				height: 90%;
 				width: 90%;
-				object-fit: cover;
+
+				max-height: 250px;
+				max-width: 250px;
 			}
 		}
 	}
