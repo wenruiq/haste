@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //* Base: Find Items By Keywords
-const url = 'http://svcs.ebay.com/services/search/FindingService/v1?';
+const url = 'https://svcs.ebay.com/services/search/FindingService/v1?';
 
 const appKey = 'LifuHuan-haste-PRD-25007f986-39451291';
 const operationName = 'findItemsByKeywords';
@@ -18,7 +18,6 @@ url += '&RESPONSE-DATA-FORMAT=' + returnDataType;
 url += '&REST-PAYLOAD';
 url += '&GLOBAL-ID=' + globalID;
 url += '&siteid=' + siteID;
-
 
 url += '&paginationInput.entriesPerPage=' + entriesPerPage;
 

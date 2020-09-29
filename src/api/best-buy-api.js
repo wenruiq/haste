@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const GetFromBestBuyApi = axios.create({
-	baseURL: 'http://haste-test-api.herokuapp.com/',
+	baseURL: 'https://haste-test-api.herokuapp.com/',
 });
