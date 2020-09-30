@@ -39,6 +39,8 @@ Using the APIs offered by these platforms, Haste uses an algorithm to find simil
 
 This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) and [Wenrui](https://github.com/wenruiq)
 
+***This project is still under development***
+
 ### Built With
 * [ReactJS](https://reactjs.org/)
 * [Redux](https://redux.js.org/introduction/getting-started)
