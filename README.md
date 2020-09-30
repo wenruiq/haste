@@ -33,9 +33,9 @@
   
 ## About the Project
 
-Haste is a website that allows user to search for products across multiple e-commerce platforms and find the best deals
+Haste is an one-stop website for users to find the cheapest products across e-commerce platforms
 
-Collating data from the official APIs offered by these e-commerce platforms, an algorithm is used to find similar products at lower prices
+Using the APIs offered by these platforms, Haste uses an algorithm to find similar products at cheaper prices
 
 This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) and [Wenrui](https://github.com/wenruiq)
 
