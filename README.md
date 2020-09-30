@@ -3,7 +3,7 @@
 <img src="https://user-images.githubusercontent.com/58852708/94663691-8b01bc80-033c-11eb-95da-2464e503c2cc.png" width="800px"/>
 <h3 align="center">Haste</h3>
 <p align="center">
-  Search for the Best Products Across Multiple E-Commerce Platforms
+  Search for the best products across multiple e-commerce platforms
   </br>
   <a href="https://admiring-noether-c3bf69.netlify.app"><strong>View Demo »</strong></a>
   </br>
@@ -37,9 +37,8 @@ Haste is an one-stop website for users to find the cheapest products across e-co
 
 Using the APIs offered by these platforms, Haste uses an algorithm to find similar products at cheaper prices
 
-This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) and [Wenrui](https://github.com/wenruiq)
+This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) and [Wenrui](https://github.com/wenruiq), it is still ***under development***
 
-***This project is still under development***
 
 ### Built With
 * [ReactJS](https://reactjs.org/)
