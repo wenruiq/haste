@@ -22,7 +22,7 @@ import {
 	selectPopularProductsCount,
 } from '../../redux/search/search.selectors';
 
-const categories = { Recommended: 'You Might Like', Popular: 'Popular' };
+const categories = { recommended: 'You Might Like', popular: 'Popular' };
 
 //* Wrap SearchResultsDisplay with Spinner HOC
 const SearchResultsDisplayWithSpinner = WithSpinner(SearchResultsDisplay);
@@ -35,9 +35,11 @@ class HomePage extends Component {
 	}
 
 	render() {
+		const { isPopularFetching, isRecommendedFetching } = this.props;
+
 		const loadingStatus = {
-			Recommended: this.props.selectIsRecommendedSearchFetching,
-			Popular: this.props.selectIsPopularSearchFetching,
+			recommended: isRecommendedFetching,
+			popular: isPopularFetching,
 		};
 
 		return (
@@ -45,10 +47,7 @@ class HomePage extends Component {
 				{Object.keys(categories).map((category) => (
 					<>
 						<DisplayBoxHeading title={categories[category]} />
-						<SearchResultsDisplayWithSpinner
-							type={category.toLowerCase()}
-							isLoading={loadingStatus[category]}
-						/>
+						<SearchResultsDisplayWithSpinner type={category} isLoading={loadingStatus[category]} />
 					</>
 				))}
 			</div>
@@ -57,12 +56,13 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-	selectIsPopularSearchFetching,
-	selectIsRecommendedSearchFetching,
+	isPopularFetching: selectIsPopularSearchFetching,
+	isRecommendedFetching: selectIsRecommendedSearchFetching,
 	selectRecommendedProductsCount,
 	selectPopularProductsCount,
 });
 
+//TODO: Utilize cookies to make these 2 requests in the future
 const mapDispatchToProps = (dispatch) => ({
 	fetchRecommendedStartAsync: () => dispatch(fetchRecommendedStartAsync()),
 	fetchPopularStartAsync: () => dispatch(fetchPopularStartAsync()),

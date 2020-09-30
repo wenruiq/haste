@@ -21,15 +21,18 @@ import './search-page.styles.scss';
 const SearchResultsDisplayWithSpinner = WithSpinner(SearchResultsDisplay);
 
 class SearchPage extends Component {
-	// fetch data from API
 	componentDidMount() {
 		const { fetchSearchStartAsync } = this.props;
+		//? fetch data from API
+		//TODO: Use input from user search to make the request
 		fetchSearchStartAsync();
 	}
 
 	render() {
 		const { selectIsQuerySearchFetching, productsCount } = this.props;
 
+		//? If productsCount > 0, render X products found. Else, if search is also not fetching, means that there's no products found for the search
+		//? SearchResultsDisplayWithSpinner displays a spinner if still fetching, else displays the products
 		return (
 			<div className='search-page-container'>
 				{productsCount ? (
