@@ -44,11 +44,15 @@ class HomePage extends Component {
 
 		return (
 			<div className='home-page-container'>
-				{Object.keys(categories).map((category) => (
-					<>
+				{Object.keys(categories).map((category, i) => (
+					<React.Fragment key={category + i}>
 						<DisplayBoxHeading title={categories[category]} />
-						<SearchResultsDisplayWithSpinner type={category} isLoading={loadingStatus[category]} />
-					</>
+						<SearchResultsDisplayWithSpinner
+							key={category + i}
+							type={category}
+							isLoading={loadingStatus[category]}
+						/>
+					</React.Fragment>
 				))}
 			</div>
 		);

@@ -57,6 +57,7 @@ export const selectProductsOrganized = createSelector([selectProducts], (product
 
 							//? This combines all the data from one eCommerce site into 1 giant array of parsed data
 							let combinedProductData = currentProductData.map((product) => ({
+								id: product.id,
 								name: limitDescription(product.name),
 								image: product.image,
 								url: product.url,
@@ -65,6 +66,7 @@ export const selectProductsOrganized = createSelector([selectProducts], (product
 							}));
 							//? This adds the processed data from each eCommerce site into the combined array finalResult
 							finalResult.push(...combinedProductData);
+							return combinedProductData;
 						});
 					}
 					return finalResult;
@@ -75,7 +77,6 @@ export const selectProductsOrganized = createSelector([selectProducts], (product
 
 //* Select n for number of products found in QUERY
 export const selectQueryProductsCount = createSelector([selectQuery], (query) => {
-	console.log(query);
 	return query ? (query.limit > query.total ? query.total : query.limit) : 0;
 });
 

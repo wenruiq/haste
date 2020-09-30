@@ -16,7 +16,9 @@ const SearchResultsDisplay = ({ products, type }) => {
 	return (
 		<div className='search-results-display'>
 			{selectedProducts
-				? selectedProducts.map((product) => <CardItem key={product.id} {...product} />)
+				? selectedProducts.map((product) => (
+						<CardItem key={product.name + product.id} {...product} />
+				  ))
 				: ''}
 		</div>
 	);
