@@ -35,7 +35,9 @@
 
 Haste is a website that allows user to search for products across multiple e-commerce platforms and find the best deals
 
-The app interacts with official APIs offered by these e-commerce sites, collates the results and uses an algorithm to find similar items at lower prices
+Collating data from the official APIs offered by these e-commerce platforms, an algorithm is used to find similar products at lower prices
+
+This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) and [Wenrui](https://github.com/wenruiq)
 
 ### Built With
 * [ReactJS](https://reactjs.org/)
@@ -109,6 +111,7 @@ Distributed under the **[MIT license](http://opensource.org/licenses/mit-license
 ## Contact
 
 Lifu - lifuhuang97@gmail.com
+
 Wenrui - wenrui119@gmail.com
 
 Project Link: [https://github.com/wenruiq/haste](https://github.com/wenruiq/haste)
