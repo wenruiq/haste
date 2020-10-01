@@ -1,28 +1,43 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import SearchIcon from '@material-ui/icons/Search';
+
+//* Redux Import
+import { fetchSearchStartAsync, updateUserSearchInput } from '../../redux/search/search.actions';
+import { selectUserSearchInput } from '../../redux/search/search.selectors';
 
 import './search-bar.styles.scss';
 
 class SearchBar extends Component {
+	state = { userInput: '' };
+
 	// TODO: Link Search onSubmit with search results
 	handleSubmit = (event) => {
-		// event.preventDefault();
-		// Code to handle when user hits search
+		event.preventDefault();
 
-		// dispatch event input to search page
-		// Add query to search state
+		const { fetchSearchStartAsync, history, updateUserSearchInput } = this.props;
+
+		//? Uses component state for search query but also update redux store about query so that search page will update accordingly
+		const query = this.state.userInput;
+		updateUserSearchInput(query);
+		fetchSearchStartAsync(query);
+		history.push(`/search/${query}`);
 	};
 
 	handleChange = (event) => {
-		// Code to handle user input in search bar
+		event.preventDefault();
+		//? Saves user input into component state
+		this.setState({ userInput: event.target.value });
 	};
 
 	render() {
 		return (
 			<form className='search-bar' onSubmit={this.handleSubmit}>
 				<div className='search-input'>
-					<input placeholder='Search in Haste' />
+					<input placeholder='Search in Haste' onChange={this.handleChange} />
 					<button type='submit' className='search-button'>
 						<SearchIcon className='search-icon' />
 					</button>
@@ -32,4 +47,14 @@ class SearchBar extends Component {
 	}
 }
 
-export default SearchBar;
+const mapStateToProps = () =>
+	createStructuredSelector({
+		selectUserSearchInput,
+	});
+
+const mapDispatchToProps = (dispatch) => ({
+	fetchSearchStartAsync: (query) => dispatch(fetchSearchStartAsync(query)),
+	updateUserSearchInput: (input) => dispatch(updateUserSearchInput(input)),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));

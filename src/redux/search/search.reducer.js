@@ -1,6 +1,7 @@
 import { SearchActionTypes } from './search.types';
 
 const INITIAL_STATE = {
+	userSearchInput: '',
 	products: { query: {}, recommended: {}, popular: {} },
 	isFetching: { query: false, recommended: false, popular: false },
 	errorMessage: undefined,
@@ -9,6 +10,13 @@ const INITIAL_STATE = {
 const searchReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		//* For user search query
+
+		case SearchActionTypes.UPDATE_USER_SEARCH_INPUT:
+			return {
+				...state,
+				userSearchInput: action.payload,
+			};
+
 		case SearchActionTypes.FETCH_SEARCH_START:
 			return {
 				...state,

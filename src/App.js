@@ -46,7 +46,7 @@ class App extends React.Component {
 				<Header />
 				<Switch>
 					<Route exact path='/' component={HomePage} />
-					<Route exact path='/search' component={SearchPage} />
+					<Route path='/search/:userInput' component={SearchPage} />
 					<Route
 						exact
 						path='/signin'

@@ -29,9 +29,20 @@ const SearchResultsDisplayWithSpinner = WithSpinner(SearchResultsDisplay);
 
 class HomePage extends Component {
 	componentDidMount() {
-		const { fetchRecommendedStartAsync, fetchPopularStartAsync } = this.props;
-		fetchRecommendedStartAsync();
-		fetchPopularStartAsync();
+		const {
+			fetchRecommendedStartAsync,
+			fetchPopularStartAsync,
+			selectRecommendedProductsCount,
+			selectPopularProductsCount,
+		} = this.props;
+
+		//? The count selector returns true if there's already data available
+		if (!selectRecommendedProductsCount) {
+			fetchRecommendedStartAsync();
+		}
+		if (!selectPopularProductsCount) {
+			fetchPopularStartAsync();
+		}
 	}
 
 	render() {

@@ -8,6 +8,11 @@ import { GetFromBestBuyApi } from '../../api/best-buy-api';
 //* Import other APIs below
 // ...
 
+export const updateUserSearchInput = (input) => ({
+	type: SearchActionTypes.UPDATE_USER_SEARCH_INPUT,
+	payload: input,
+});
+
 //? Used for User Search from the Search Bar
 export const fetchSearchStart = () => ({
 	type: SearchActionTypes.FETCH_SEARCH_START,
@@ -21,7 +26,7 @@ export const fetchSearchFailure = (errorMessage) => ({
 	payload: errorMessage,
 });
 //? Takes in an input of limit & query from the search bar
-export const fetchSearchStartAsync = (limit = 25, query = '') => {
+export const fetchSearchStartAsync = (query = '', limit = 25) => {
 	return (dispatch) => {
 		//* Indicate to state that search is running
 		dispatch(fetchSearchStart());
@@ -56,7 +61,7 @@ export const fetchRecommendedFailure = (errorMessage) => ({
 	payload: errorMessage,
 });
 
-export const fetchRecommendedStartAsync = (limit = 4, query = 'game') => {
+export const fetchRecommendedStartAsync = (query = 'game', limit = 4) => {
 	return (dispatch) => {
 		//* Indicate to state that fetch for recommendation has started
 		dispatch(fetchRecommendedStart());
@@ -100,7 +105,7 @@ export const fetchPopularFailure = (errorMessage) => ({
 	payload: errorMessage,
 });
 
-export const fetchPopularStartAsync = (limit = 4, query = 'bike') => {
+export const fetchPopularStartAsync = (query = 'bike', limit = 4) => {
 	return (dispatch) => {
 		dispatch(fetchPopularStart());
 

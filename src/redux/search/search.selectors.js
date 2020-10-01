@@ -16,6 +16,10 @@ const selectQuery = createSelector([selectSearch], (search) => search.products.q
 const selectRecommended = createSelector([selectSearch], (search) => search.products.recommended);
 const selectPopular = createSelector([selectSearch], (search) => search.products.popular);
 
+export const selectUserSearchInput = createSelector(
+	[selectSearch],
+	(search) => search.userSearchInput
+);
 //? This function parses the data retrieved from the API into a more readable array of data to be used to populate CardItems
 //* Input: state.search.products
 //* Output: [ ... {id, name, image, url, price, description} ] if there's data, [] if none
@@ -82,12 +86,12 @@ export const selectQueryProductsCount = createSelector([selectQuery], (query) =>
 
 //* Select n for number of products found in RECOMMENDED
 export const selectRecommendedProductsCount = createSelector([selectRecommended], (products) =>
-	products ? (products.limit > products.total ? products.total : products.limit) : 0
+	Object.keys(products).length > 0 ? true : false
 );
 
 //* Select n for number of products found in POPULAR
 export const selectPopularProductsCount = createSelector([selectPopular], (products) =>
-	products ? (products.limit > products.total ? products.total : products.limit) : 0
+	Object.keys(products).length > 0 ? true : false
 );
 
 //* Check if ASYNC request is still in process
