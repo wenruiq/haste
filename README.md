@@ -1,6 +1,6 @@
 <p align="center">
 
-<img src="https://user-images.githubusercontent.com/58852708/94663691-8b01bc80-033c-11eb-95da-2464e503c2cc.png" width="800px"/>
+<img src="https://user-images.githubusercontent.com/58852708/95030232-e9ce8980-06e0-11eb-9122-62ea14628bd7.png" width="800px"/>
 <h3 align="center">Haste</h3>
 <p align="center">
   Search for the best products across multiple e-commerce platforms
@@ -50,10 +50,14 @@ This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) a
 
 
 ## Key Features
-* Sign in with Google
-* Search for products across platforms
-* Find similar products & recommend better deals
-* Save products
+### Sign in with Google
+<img src="http://g.recordit.co/CM4Q68ruRd.gif" width="800px" />
+
+### Search for products across platforms
+<img src="http://g.recordit.co/atabWkhXYT.gif" width="800px" />
+
+* Find similar products & recommend better deals (Work in progress)
+* Save products (Work in progress)
 
 
 
