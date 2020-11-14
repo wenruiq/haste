@@ -12,11 +12,7 @@ import './header-icons-container.styles.scss';
 
 const HeaderIconsContainer = ({ currentUser, hidden }) => (
   <div className="header-icons-container">
-    {currentUser ? (
-      <Link to="/saved">
-        <SavedItemsIcon />
-      </Link>
-    ) : null}
+    {currentUser ? <SavedItemsIcon /> : null}
     <div className="welcome-message">
       {currentUser
         ? `Welcome, ${currentUser.displayName}`

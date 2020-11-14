@@ -32,8 +32,7 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 		//* Indicate to state that search is running
 		dispatch(fetchSearchStart());
 
-		console.log('This is query');
-		console.log(query);
+
 		//* MultiQuery from two APIs
 		axios
 			.all([
@@ -45,7 +44,6 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 			.then(
 				//* Indicate to state that response has been received
 				axios.spread((bestBuyApiData, eBayApiData) => {
-					console.log(eBayApiData);
 
 					var eBayApiActualData = [];
 

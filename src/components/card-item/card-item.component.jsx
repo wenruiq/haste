@@ -17,6 +17,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 class CardItem extends React.Component {
   handleSave = () => {
     const {
+      id,
       name,
       description,
       price,
@@ -27,6 +28,7 @@ class CardItem extends React.Component {
     } = this.props;
 
     const productToBeAdded = {
+      id,
       name,
       description,
       price,

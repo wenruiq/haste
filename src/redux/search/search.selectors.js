@@ -51,12 +51,9 @@ export const selectProductsOrganized = createSelector(
             if (products[categories].data) {
               return products[categories].data;
 
-              console.log('This is products.categories.data');
-              console.log(products[categories].data);
 
               return products[categories].data.data.map(product => {
-                console.log('this is product in selector');
-                console.log(product);
+
 
                 return {
                   id: product.id,

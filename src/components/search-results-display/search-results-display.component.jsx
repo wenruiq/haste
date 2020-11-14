@@ -11,13 +11,11 @@ import './search-results-display.styles.scss';
 const SearchResultsDisplay = ({ products, type }) => {
 	const categories = ['query', 'recommended', 'popular'];
 
-	console.log('This is products');
-	console.log(products);
+
 
 	const selectedProducts = products[categories.indexOf(type)];
 
-	console.log('This is selected products');
-	console.log(selectedProducts);
+
 
 	return (
 		<div className='search-results-display'>
