@@ -11,11 +11,15 @@ import SearchPage from './pages/search-page/search-page.component';
 import SignInPage from './pages/sign-in-page/sign-in-page.component';
 import SavedPage from './pages/saved-page/saved-page.component';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserProfileDocument,
+  firestore,
+} from './firebase/firebase.utils';
 
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { fetchSavedStartAsync } from './redux/saved/saved.actions';
+import { fetchSavedStartAsync, setSaved } from './redux/saved/saved.actions';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -45,9 +49,20 @@ class App extends React.Component {
             currentUser: { id: currentUserID },
           } = this.props;
 
-          console.log(`Current user id is ${currentUserID}`);
-          // TODO: Fetch user's saved items
+          // *Fetch saved products
           fetchSavedStartAsync(currentUserID);
+
+          // *Listen to saved products onSnapShot
+          const savedRef = firestore.collection(`users/${currentUserID}/saved`);
+          savedRef.onSnapshot(async snapShot => {
+            const savedItems = [];
+            snapShot.forEach(doc => {
+              savedItems.push(doc.data());
+            });
+            setSaved(savedItems);
+
+            console.log('%c SAVED ON SNAPSHOT SIA LA', 'color: red');
+          });
         });
       }
       // *If not logged in, setCurrentUser to null
@@ -86,6 +101,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setSaved: savedItems => dispatch(setSaved(savedItems)),
   fetchSavedStartAsync: userID => dispatch(fetchSavedStartAsync(userID)),
 });
 

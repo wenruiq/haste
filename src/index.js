@@ -12,9 +12,10 @@ import App from './App';
 ReactDOM.render(
   // *Provider from react-redux lib to provide redux store
   <Provider store={store}>
-    {/* BrowserRouter from react-router-dom lib to provide routing */}
     <BrowserRouter>
+      <PersistGate persistor={persistor}>
       <App />
+      </PersistGate>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

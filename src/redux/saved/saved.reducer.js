@@ -1,7 +1,7 @@
 import SavedActionTypes from './saved.types';
 
 const INITIAL_STATE = {
-  saved: [],
+  savedItems: [],
   isAdding: false,
   isFetching: false,
   errorMessage: undefined,
@@ -9,6 +9,13 @@ const INITIAL_STATE = {
 
 const savedReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    // *Set saved
+    case SavedActionTypes.SET_SAVED:
+      return {
+        ...state,
+        savedItems: action.payload,
+      };
+
     // *Add saved
     case SavedActionTypes.ADD_SAVED_START:
       return {
@@ -19,7 +26,7 @@ const savedReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isAdding: false,
-        saved: [...state.saved, action.payload],
+        savedItems: [...state.savedItems, action.payload],
       };
     case SavedActionTypes.ADD_SAVED_FAILURE:
       return {
@@ -38,7 +45,7 @@ const savedReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        saved: [...state.saved, action.payload],
+        savedItems: [...state.savedItems, ...action.payload],
       };
     case SavedActionTypes.FETCH_SAVED_FAILURE:
       return {

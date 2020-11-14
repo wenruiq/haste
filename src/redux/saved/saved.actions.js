@@ -2,6 +2,12 @@ import SavedActionTypes from './saved.types';
 
 import { firestore } from '../../firebase/firebase.utils';
 
+// *Set saved (this is just to update state with latest data)
+export const setSaved = savedItems => ({
+  type: SavedActionTypes.SET_SAVED,
+  payload: savedItems,
+});
+
 // *Add saved
 export const addSavedStart = () => ({
   type: SavedActionTypes.ADD_SAVED_START,
@@ -23,7 +29,8 @@ export const addSavedStartAsync = (userID, product) => {
     dispatch(addSavedStart());
 
     savedRef
-      .add({
+      .doc(product.id.toString(10))
+      .set({
         ...product,
       })
       .then(snapShot => {
@@ -55,12 +62,12 @@ export const fetchSavedStartAsync = userID => {
     savedRef
       .get()
       .then(snapShot => {
-        // *docsMap is { doc.id: {name, description...} ...}
-        const docsMap = {};
+        // *docs is [product...]
+        const docs = [];
         snapShot.forEach(doc => {
-          docsMap[doc.id] = doc.data(); 
+          docs.push(doc.data());
         });
-        dispatch(fetchSavedSuccess(docsMap));
+        dispatch(fetchSavedSuccess(docs));
       })
       .catch(error => dispatch(fetchSavedFailure(error.message)));
   };
