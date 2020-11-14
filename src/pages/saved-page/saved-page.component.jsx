@@ -1,9 +1,7 @@
 import React from 'react';
 
 class SavedPage extends React.Component {
-  componentDidMount() {
-    //todo: fetchSavedStartAsync
-  }
+  componentDidMount() {}
 
   render() {
     return <div>Saved Page</div>;

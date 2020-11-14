@@ -2,6 +2,7 @@ import SavedActionTypes from './saved.types';
 
 const INITIAL_STATE = {
   saved: [],
+  isAdding: false,
   isFetching: false,
   errorMessage: undefined,
 };
@@ -11,18 +12,18 @@ const savedReducer = (state = INITIAL_STATE, action) => {
     case SavedActionTypes.ADD_SAVED_START:
       return {
         ...state,
-        isFetching: true,
+        isAdding: true,
       };
     case SavedActionTypes.ADD_SAVED_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isAdding: false,
         saved: [...state.saved, action.payload],
       };
     case SavedActionTypes.ADD_SAVED_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isAdding: false,
         errorMessage: action.payload,
       };
     default:

@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { fetchSavedStartAsync } from './redux/saved/saved.actions';
 
 import './scss/App.scss';
 
@@ -17,54 +18,67 @@ import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 
 class App extends React.Component {
-	unsubscribeFromAuth = null;
+  unsubscribeFromAuth = null;
+  unsubscribeFromSaved = null;
 
-	componentDidMount() {
-		const { setCurrentUser } = this.props;
-		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-			if (userAuth) {
-				const userRef = await createUserProfileDocument(userAuth);
+  componentDidMount() {
+    const { setCurrentUser } = this.props;
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-				userRef.onSnapshot((snapShot) => {
-					setCurrentUser({
-						id: snapShot.id,
-						...snapShot.data(),
-					});
-				});
-			}
-			setCurrentUser(userAuth);
-		});
-	}
+        userRef.onSnapshot(async snapShot => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
 
-	componentWillUnmount() {
-		this.unsubscribeFromAuth();
-	}
+          // *Perform subscribe to saved items when auth completes
+          const { currentUser } = this.props;
+          if (currentUser.id) {
+            const {fetchSavedStartAsync} = this.props;
+            console.log(`Current user id done: ${currentUser.id}`)
+            fetchSavedStartAsync(currentUser.id);
+            console.log("haha");
+          }
+        });
+      }
+      setCurrentUser(userAuth);
+    });
+  }
 
-	render() {
-		return (
-			<div>
-				<Header />
-				<Switch>
-					<Route exact path='/' component={HomePage} />
-					<Route path='/search/:userInput' component={SearchPage} />
-					<Route
-						exact
-						path='/signin'
-						render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignInPage />)}
-					/>
-					<Route exact path='/saved' component={SavedPage} />
-				</Switch>
-			</div>
-		);
-	}
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/search/:userInput" component={SearchPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <SignInPage />
+            }
+          />
+          <Route exact path="/saved" component={SavedPage} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser,
+  currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  fetchSavedStartAsync: userID => dispatch(fetchSavedStartAsync(userID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

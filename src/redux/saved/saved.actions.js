@@ -55,7 +55,7 @@ export const fetchSavedStartAsync = userID => {
     savedRef
       .get()
       .then(snapShot => {
-        dispatch(fetchSavedSuccess(snapShot.data));
+        dispatch(fetchSavedSuccess(snapShot.docs));
       })
       .catch(error => dispatch(fetchSavedFailure(error.message)));
   };
