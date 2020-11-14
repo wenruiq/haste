@@ -2,12 +2,10 @@ import axios from 'axios';
 
 import { SearchActionTypes } from './search.types';
 
-//* Import Mock API config & its utils
+//* Import BestBuyAPI & eBay API config & their utils
 //? BestBuyAPI reference: http://haste-test-api.herokuapp.com/queries
 import { GetFromBestBuyApi } from '../../api/best-buy-api';
-import { GetFromEbayApi, endingParameters } from '../../api/ebay-api.js';
-//* Import other APIs below
-// ...
+import { GetFromEbayApi, endingParameters } from '../../api/ebay-api';
 
 export const updateUserSearchInput = (input) => ({
 	type: SearchActionTypes.UPDATE_USER_SEARCH_INPUT,
@@ -26,14 +24,27 @@ export const fetchSearchFailure = (errorMessage) => ({
 	type: SearchActionTypes.FETCH_SEARCH_FAILURE,
 	payload: errorMessage,
 });
+
+const convertBestBuyDataToOrganizedData = (dataset, keyword) => {
+	return dataset.map((data) => {
+		return {
+			keyword,
+			id: data.id,
+			image: data.image,
+			url: data.url,
+			price: data.price,
+			name: limitDescription(data.name),
+			description: limitDescription(data.description, 40),
+		};
+	});
+};
+
 //? Takes in an input of limit & query from the search bar
 export const fetchSearchStartAsync = (query = '', limit = 25) => {
 	return (dispatch) => {
 		//* Indicate to state that search is running
 		dispatch(fetchSearchStart());
 
-		console.log('This is query');
-		console.log(query);
 		//* MultiQuery from two APIs
 		axios
 			.all([
@@ -45,9 +56,20 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 			.then(
 				//* Indicate to state that response has been received
 				axios.spread((bestBuyApiData, eBayApiData) => {
-					console.log(eBayApiData);
-
+					var bestBuyApiActualData = [];
 					var eBayApiActualData = [];
+
+					if (bestBuyApiData) {
+						if (bestBuyApiData.data) {
+							bestBuyApiActualData = convertBestBuyDataToOrganizedData(
+								bestBuyApiData.data.data,
+								query
+							);
+						}
+					}
+
+					// console.log('This is filtered best buy data');
+					// console.log(bestBuyApiActualData);
 
 					if (eBayApiData.data.findItemsByKeywordsResponse) {
 						if (eBayApiData.data.findItemsByKeywordsResponse[0].searchResult) {
@@ -55,6 +77,9 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 								eBayApiData.data.findItemsByKeywordsResponse[0].searchResult[0].item;
 						}
 					}
+
+					console.log('This is ebay Actual data');
+					console.log(eBayApiActualData);
 
 					//* Convert eBay API data to match bestbuy's
 					let modifiedEBayData = eBayApiActualData.map((data) => {
@@ -65,7 +90,7 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 						}
 
 						if (data.title) {
-							name = data.title[0];
+							name = limitDescription(data.title[0]);
 						}
 
 						if (data.sellingStatus) {
@@ -84,9 +109,16 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 
 						if (data.subtitle) {
 							description = data.subtitle[0];
+						} else {
+							if (data.primaryCategory) {
+								if (data.primaryCategory[0].categoryName) {
+									description = limitDescription(data.primaryCategory[0].categoryName[0], 40);
+								}
+							}
 						}
 
 						return {
+							keyword: query,
 							id,
 							name,
 							price,
@@ -96,9 +128,12 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 						};
 					});
 
-					Array.prototype.push.apply(bestBuyApiData.data.data, modifiedEBayData);
+					// console.log('This is filtered ebay data');
+					// console.log(modifiedEBayData);
+
+					Array.prototype.push.apply(bestBuyApiActualData, modifiedEBayData);
 					//* Updated products['query'] into an Array of Objects
-					dispatch(fetchSearchSuccess(bestBuyApiData.data.data));
+					dispatch(fetchSearchSuccess(bestBuyApiActualData));
 				})
 			)
 			.catch((errors) => {
@@ -123,6 +158,8 @@ export const fetchRecommendedFailure = (errorMessage) => ({
 	payload: errorMessage,
 });
 
+//* Allow 4 query values based on cookie
+//TODO: Change query to an array of keywords and use limit to forEach get query
 export const fetchRecommendedStartAsync = (query = 'game', limit = 4) => {
 	return (dispatch) => {
 		//* Indicate to state that fetch for recommendation has started
@@ -139,10 +176,17 @@ export const fetchRecommendedStartAsync = (query = 'game', limit = 4) => {
 			])
 			.then(
 				axios.spread((obj1, obj2, obj3, obj4) => {
-					dispatch(fetchRecommendedSuccess(obj1.data));
-					dispatch(fetchRecommendedSuccess(obj2.data));
-					dispatch(fetchRecommendedSuccess(obj3.data));
-					dispatch(fetchRecommendedSuccess(obj4.data));
+					console.log('This is recommended query 1');
+					console.log(obj1.data);
+
+					let allResults = [
+						convertBestBuyDataToOrganizedData(obj1.data.data, query)[0],
+						convertBestBuyDataToOrganizedData(obj2.data.data, 'chair')[0],
+						convertBestBuyDataToOrganizedData(obj3.data.data, 'refrigerator')[0],
+						convertBestBuyDataToOrganizedData(obj4.data.data, 'macbook')[0],
+					];
+
+					dispatch(fetchRecommendedSuccess(allResults));
 				})
 			)
 			.catch((errors) => {
@@ -152,6 +196,7 @@ export const fetchRecommendedStartAsync = (query = 'game', limit = 4) => {
 };
 
 //* FETCH FOR 'POPULAR' ON HOMEPAGE
+//TODO: Pass in the most popular categories, sort by watch count, get the top item
 
 export const fetchPopularStart = () => ({
 	type: SearchActionTypes.FETCH_POPULAR_START,
@@ -177,20 +222,33 @@ export const fetchPopularStartAsync = (query = 'bike', limit = 4) => {
 				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query}*`),
 				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*samsung*`),
 				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*oven*`),
-				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*dining*`),
+				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*android*`),
 			])
 			.then(
 				axios.spread((obj1, obj2, obj3, obj4) => {
-					dispatch(fetchPopularSuccess(obj1.data));
-					dispatch(fetchPopularSuccess(obj2.data));
-					dispatch(fetchPopularSuccess(obj3.data));
-					dispatch(fetchPopularSuccess(obj4.data));
+					let allResults = [
+						convertBestBuyDataToOrganizedData(obj1.data.data, query)[0],
+						convertBestBuyDataToOrganizedData(obj2.data.data, 'samsung')[0],
+						convertBestBuyDataToOrganizedData(obj3.data.data, 'oven')[0],
+						convertBestBuyDataToOrganizedData(obj4.data.data, 'android')[0],
+					];
+
+					dispatch(fetchPopularSuccess(allResults));
 				})
 			)
 			.catch((errors) => {
 				dispatch(fetchPopularFailure(errors));
 			});
 	};
+};
+
+const limitDescription = (description, limit = 26) => {
+	if (description) {
+		if (description.length > limit) {
+			return description.substring(0, limit - 5) + ' ...';
+		}
+	}
+	return description;
 };
 
 //! https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SECURITY-APPNAME=LifuHuan-haste-PRD-25007f986-39451291&SERVICE-VERSION=1.0.0&GLOBAL-ID=EBAY-SG&siteid=216&paginationInput.entriesPerPage=25&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=apple
