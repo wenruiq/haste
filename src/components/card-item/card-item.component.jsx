@@ -5,9 +5,8 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { addSavedStartAsync } from '../../redux/saved/saved.actions';
 
 //* Import Logos as Modules
-import Shopee from '../../assets/brands/shopee-logo.png';
+import BestBuy from '../../assets/brands/bestbuy-logo.png';
 import eBay from '../../assets/brands/ebay-logo.png';
-import Lazada from '../../assets/brands/lazada-logo.png';
 
 import './card-item.styles.scss';
 
@@ -29,15 +28,14 @@ class CardItem extends React.Component {
 	};
 
 	render() {
-		const { name, description, price, image, url, currentUser } = this.props;
-		const brands = [Shopee, eBay, Lazada];
-		const randomedBrand = brands[Math.floor(Math.random() * brands.length)];
+		const { name, description, source, price, image, url, currentUser } = this.props;
+
 		return (
 			<div className='card-item-container'>
 				<div className='card-item'>
 					<div className='brand-and-save-container'>
 						<div className='brand-container'>
-							<img src={randomedBrand} alt='product-img' />
+							<img src={source === 'ebay' ? eBay : BestBuy} alt='product-img' />
 						</div>
 						{currentUser ? (
 							<BookmarkBorderIcon className='save-item-icon' onClick={() => this.handleSave()} />

@@ -29,6 +29,7 @@ const convertBestBuyDataToOrganizedData = (dataset, keyword) => {
 	return dataset.map((data) => {
 		return {
 			keyword,
+			source: 'bestbuy',
 			id: data.id,
 			image: data.image,
 			url: data.url,
@@ -118,6 +119,7 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 						}
 
 						return {
+							source: 'ebay',
 							keyword: query,
 							id,
 							name,
