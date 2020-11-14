@@ -2,7 +2,7 @@ import { SearchActionTypes } from './search.types';
 
 const INITIAL_STATE = {
 	userSearchInput: '',
-	products: { query: {}, recommended: {}, popular: {} },
+	products: { query: [], recommended: [], popular: [] },
 	isFetching: { query: false, recommended: false, popular: false },
 	errorMessage: undefined,
 };
@@ -49,12 +49,7 @@ const searchReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				products: {
 					...state.products,
-					//? This persists the product data that's already stored from other queries, as recommended & popular processes multiple queries
-					recommended: {
-						...state.products.recommended,
-						//? This indexes multiple queries, can be improved to save as the eCommerce website in the future
-						[Object.keys(state.products.recommended).length + 1]: action.payload,
-					},
+					recommended: action.payload,
 				},
 
 				isFetching: { ...state.isFetching, recommended: false },
@@ -79,12 +74,7 @@ const searchReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				products: {
 					...state.products,
-					//? This persists the product data that's already stored from other queries, as recommended & popular processes multiple queries
-					popular: {
-						...state.products.popular,
-						//? This indexes multiple queries, can be improved to save as the eCommerce website in the future
-						[Object.keys(state.products.popular).length + 1]: action.payload,
-					},
+					popular: action.payload,
 				},
 
 				isFetching: { ...state.isFetching, popular: false },
