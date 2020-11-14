@@ -1,1 +1,0 @@
-//TODO: This file will contain API config for shopee / amazon depending on access rights

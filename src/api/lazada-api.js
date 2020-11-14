@@ -1,1 +1,0 @@
-//TODO: Configure lazada API after getting app request approved

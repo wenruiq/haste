@@ -5,6 +5,7 @@ import { SearchActionTypes } from './search.types';
 //* Import Mock API config & its utils
 //? BestBuyAPI reference: http://haste-test-api.herokuapp.com/queries
 import { GetFromBestBuyApi } from '../../api/best-buy-api';
+import { GetFromEbayApi, endingParameters } from '../../api/ebay-api.js';
 //* Import other APIs below
 // ...
 
@@ -31,18 +32,79 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 		//* Indicate to state that search is running
 		dispatch(fetchSearchStart());
 
-		GetFromBestBuyApi.get(
-			`/products?$limit=${limit}${query ? '&name[$like]=*' + query + '*' : ''}`
-		).then(
-			//* Indicate to state that response has been received
-			(response) => {
-				dispatch(fetchSearchSuccess(response.data));
-			},
-			//* Indicate to state that an error occurred in the search
-			(error) => {
-				dispatch(fetchSearchFailure(error));
-			}
-		);
+		console.log('This is query');
+		console.log(query);
+		//* MultiQuery from two APIs
+		axios
+			.all([
+				GetFromBestBuyApi.get(
+					`/products?$limit=${limit}${query ? '&name[$like]=*' + query + '*' : ''}`
+				),
+				GetFromEbayApi.get(`/${endingParameters}&keywords=${query}`),
+			])
+			.then(
+				//* Indicate to state that response has been received
+				axios.spread((bestBuyApiData, eBayApiData) => {
+					console.log(eBayApiData);
+
+					var eBayApiActualData = [];
+
+					if (eBayApiData.data.findItemsByKeywordsResponse) {
+						if (eBayApiData.data.findItemsByKeywordsResponse[0].searchResult) {
+							eBayApiActualData =
+								eBayApiData.data.findItemsByKeywordsResponse[0].searchResult[0].item;
+						}
+					}
+
+					//* Convert eBay API data to match bestbuy's
+					let modifiedEBayData = eBayApiActualData.map((data) => {
+						var id, name, price, image, url, description;
+
+						if (data.itemId) {
+							id = data.itemId[0];
+						}
+
+						if (data.title) {
+							name = data.title[0];
+						}
+
+						if (data.sellingStatus) {
+							if (data.sellingStatus[0].convertedCurrentPrice) {
+								price = data.sellingStatus[0].convertedCurrentPrice[0].__value__;
+							}
+						}
+
+						if (data.galleryURL) {
+							image = data.galleryURL[0];
+						}
+
+						if (data.viewItemURL) {
+							url = data.viewItemURL[0];
+						}
+
+						if (data.subtitle) {
+							description = data.subtitle[0];
+						}
+
+						return {
+							id,
+							name,
+							price,
+							image,
+							url,
+							description,
+						};
+					});
+
+					Array.prototype.push.apply(bestBuyApiData.data.data, modifiedEBayData);
+					//* Updated products['query'] into an Array of Objects
+					dispatch(fetchSearchSuccess(bestBuyApiData.data.data));
+				})
+			)
+			.catch((errors) => {
+				//* Indicate to state that an error occurred in the search
+				dispatch(fetchSearchFailure(errors));
+			});
 	};
 };
 
@@ -130,3 +192,5 @@ export const fetchPopularStartAsync = (query = 'bike', limit = 4) => {
 			});
 	};
 };
+
+//! https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SECURITY-APPNAME=LifuHuan-haste-PRD-25007f986-39451291&SERVICE-VERSION=1.0.0&GLOBAL-ID=EBAY-SG&siteid=216&paginationInput.entriesPerPage=25&RESPONSE-DATA-FORMAT=JSON&callback=_cb_findItemsByKeywords&REST-PAYLOAD&keywords=apple

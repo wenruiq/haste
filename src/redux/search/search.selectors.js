@@ -28,20 +28,33 @@ export const selectUserSearchInput = createSelector(
 //? state.search.products is split into the 3 categories: query, recommended and popular
 //? 'query' goes into the if block, 'recommended' and 'popular' into the else block
 
-export const selectProductsOrganized = createSelector([selectProducts], (products) =>
+export const selectProductsOrganized = createSelector([selectProducts], (products) => {
+	return products;
+
 	products
 		? //? categories = 'query', 'popular' and 'recommended'
+
 		  Object.keys(products).map((categories) => {
 				if (categories === 'query') {
 					if (products[categories].data) {
-						return products[categories].data.map((product) => ({
-							id: product.id,
-							name: limitDescription(product.name),
-							image: product.image,
-							url: product.url,
-							price: '$' + product.price,
-							description: limitDescription(product.description, 40),
-						}));
+						return products[categories].data;
+
+						console.log('This is products.categories.data');
+						console.log(products[categories].data);
+
+						return products[categories].data.data.map((product) => {
+							console.log('this is product in selector');
+							console.log(product);
+
+							return {
+								id: product.id,
+								name: limitDescription(product.name),
+								image: product.image,
+								url: product.url,
+								price: '$' + product.price,
+								description: limitDescription(product.description, 40),
+							};
+						});
 					} else {
 						return [];
 					}
@@ -76,12 +89,12 @@ export const selectProductsOrganized = createSelector([selectProducts], (product
 					return finalResult;
 				}
 		  })
-		: []
-);
+		: [];
+});
 
 //* Select n for number of products found in QUERY
 export const selectQueryProductsCount = createSelector([selectQuery], (query) => {
-	return query ? (query.limit > query.total ? query.total : query.limit) : 0;
+	return query ? query.length : 0;
 });
 
 //* Select n for number of products found in RECOMMENDED
