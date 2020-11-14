@@ -19,5 +19,4 @@ const rootReducer = combineReducers({
   search: searchReducer,
 });
 
-export default rootReducer;
-// export default persistReducer(persistConfig, rootReducer);
+export default persistReducer(persistConfig, rootReducer);

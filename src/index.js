@@ -13,9 +13,9 @@ ReactDOM.render(
   // *Provider from react-redux lib to provide redux store
   <Provider store={store}>
     <BrowserRouter>
-      {/* <PersistGate persistor={persistor}> */}
+      <PersistGate persistor={persistor}>
       <App />
-      {/* </PersistGate> */}
+      </PersistGate>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
