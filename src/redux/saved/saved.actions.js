@@ -2,7 +2,7 @@ import SavedActionTypes from './saved.types';
 
 import { firestore } from '../../firebase/firebase.utils';
 
-// *Save products to firestore
+// *Add saved
 export const addSavedStart = () => ({
   type: SavedActionTypes.ADD_SAVED_START,
 });
@@ -33,7 +33,7 @@ export const addSavedStartAsync = (userID, product) => {
   };
 };
 
-// *Get saved products from firestore
+// *Get saved
 export const fetchSavedStart = () => ({
   type: SavedActionTypes.FETCH_SAVED_START,
 });
@@ -55,7 +55,12 @@ export const fetchSavedStartAsync = userID => {
     savedRef
       .get()
       .then(snapShot => {
-        dispatch(fetchSavedSuccess(snapShot.docs));
+        // *docsMap is { doc.id: {name, description...} ...}
+        const docsMap = {};
+        snapShot.forEach(doc => {
+          docsMap[doc.id] = doc.data(); 
+        });
+        dispatch(fetchSavedSuccess(docsMap));
       })
       .catch(error => dispatch(fetchSavedFailure(error.message)));
   };

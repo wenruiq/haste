@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { fetchSavedStartAsync } from './redux/saved/saved.actions';
 
 import './scss/App.scss';
 
@@ -16,33 +15,42 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { fetchSavedStartAsync } from './redux/saved/saved.actions';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
-  unsubscribeFromSaved = null;
 
+  // *Mounting of header + whatever page below
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    // *Get actions from redux state
+    const { setCurrentUser, fetchSavedStartAsync } = this.props;
+
+    // *Subscribe to auth
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // *If user logged in
       if (userAuth) {
+        // *Create user document in firebase on first login
+        // *userRef is firestore.doc(`users/${userAuth.uid}`);
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(async snapShot => {
+          // *Put user data into state
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
           });
 
-          // *Perform subscribe to saved items when auth completes
-          const { currentUser } = this.props;
-          if (currentUser.id) {
-            const {fetchSavedStartAsync} = this.props;
-            console.log(`Current user id done: ${currentUser.id}`)
-            fetchSavedStartAsync(currentUser.id);
-            console.log("haha");
-          }
+          // *Using selector, get currentUserID from props
+          const {
+            currentUser: { id: currentUserID },
+          } = this.props;
+
+          console.log(`Current user id is ${currentUserID}`);
+          // TODO: Fetch user's saved items
+          fetchSavedStartAsync(currentUserID);
         });
       }
+      // *If not logged in, setCurrentUser to null
       setCurrentUser(userAuth);
     });
   }
