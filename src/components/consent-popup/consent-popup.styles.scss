@@ -1,0 +1,44 @@
+@import '../../scss/config.scss';
+
+.consent-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  display: flex;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid $main-color;
+  padding: 20px 40px;
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  .consent-buttons {
+    display: flex;
+    justify-content: space-around;
+    button {
+      margin: 0 10px;
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  .consent-container {
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 680px) {
+  .consent-container {
+    flex-direction: column;
+    p{
+      margin-bottom: 10px;
+    }
+  }
+}

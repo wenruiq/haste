@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import './scss/App.scss';
 
 import Header from './components/header/header.component';
+import ConsentPopup from './components/consent-popup/consent-popup.component';
 import HomePage from './pages/home-page/home-page.component';
 import SearchPage from './pages/search-page/search-page.component';
 import SignInPage from './pages/sign-in-page/sign-in-page.component';
@@ -20,6 +21,7 @@ import {
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { fetchSavedStartAsync, setSaved } from './redux/saved/saved.actions';
+import { selectSuggestConsent } from './redux/suggest/suggest.selectors';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -73,6 +75,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { suggestConsent } = this.props;
     return (
       <div>
         <Header />
@@ -88,6 +91,7 @@ class App extends React.Component {
           />
           <Route exact path="/saved" component={SavedPage} />
         </Switch>
+        {suggestConsent ? null : <ConsentPopup />}
       </div>
     );
   }
@@ -95,6 +99,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  suggestConsent: selectSuggestConsent,
 });
 
 const mapDispatchToProps = dispatch => ({

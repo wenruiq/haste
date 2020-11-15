@@ -1,0 +1,7 @@
+const suggestActionTypes = {
+  ACCEPT_SUGGEST_CONSENT: 'ACCEPT_SUGGEST_CONSENT',
+  REJECT_SUGGEST_CONSENT: 'REJECT_SUGGEST_CONSENT',
+  ADD_SUGGEST_TERM: 'ADD_SUGGEST_TERM',
+};
+
+export default suggestActionTypes;
