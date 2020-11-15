@@ -2,13 +2,40 @@ import { SearchActionTypes } from './search.types';
 
 const INITIAL_STATE = {
 	userSearchInput: '',
-	products: { query: [], recommended: [], popular: [] },
-	isFetching: { query: false, recommended: false, popular: false },
+	findSimilarQuery: {},
+	products: { query: [], recommended: [], popular: [], similar: [] },
+	isFetching: { query: false, recommended: false, popular: false, similar: [] },
 	errorMessage: undefined,
 };
 
 const searchReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
+		case SearchActionTypes.UPDATE_FIND_SIMILAR_QUERY:
+			return {
+				...state,
+				findSimilarQuery: action.payload,
+			};
+
+		case SearchActionTypes.FETCH_SIMILAR_START:
+			return {
+				...state,
+				isFetching: { ...state.isFetching, similar: true },
+			};
+
+		case SearchActionTypes.FETCH_SIMILAR_SUCCESS:
+			return {
+				...state,
+				products: { ...state.products, similar: action.payload },
+				isFetching: { ...state.isFetching, similar: false },
+			};
+
+		case SearchActionTypes.FETCH_SIMILAR_FAILURE:
+			return {
+				...state,
+				isFetching: { ...state.isFetching, similar: false },
+				errorMessage: action.payload,
+			};
+
 		//* For user search query
 
 		case SearchActionTypes.UPDATE_USER_SEARCH_INPUT:
@@ -85,6 +112,12 @@ const searchReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetching: { ...state.isFetching, popular: false },
 				errorMessage: action.payload,
+			};
+
+		case SearchActionTypes.SORT_RESULTS_DISPLAY:
+			return {
+				...state,
+				products: { ...state.products, query: action.payload },
 			};
 
 		default:
