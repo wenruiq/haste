@@ -30,13 +30,7 @@ class App extends React.Component {
 		const {
 			setCurrentUser,
 			fetchSavedStartAsync,
-			updateUserSearchInput,
-			updateFindSimilarQuery,
 		} = this.props;
-
-		// *Reset find similar query & user search input
-		updateUserSearchInput('');
-		updateFindSimilarQuery({});
 
 		// *Subscribe to auth
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {

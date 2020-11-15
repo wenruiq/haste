@@ -14,10 +14,6 @@ class FindSimilarResultsDisplay extends Component {
 
 		let selectedProducts = products['similar'];
 
-		console.log('I tried to render as FindSimilarResults Display');
-		console.log('This is selected products');
-		console.log(selectedProducts);
-
 		return (
 			<div className='similar-results-display'>
 				{selectedProducts

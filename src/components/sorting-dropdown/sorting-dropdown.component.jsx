@@ -19,9 +19,6 @@ class SortingDropdown extends Component {
 	onChangeInput = (value) => {
 		let { sortResultsDisplay, queryData } = this.props;
 
-		// console.log('THIS IS QUERY DATA IN SORTING DROPDOWN');
-		// console.log(queryData);
-
 		sortResultsDisplay(value.value, queryData);
 	};
 

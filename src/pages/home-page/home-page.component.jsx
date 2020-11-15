@@ -45,15 +45,12 @@ class HomePage extends Component {
 		if (selectSuggestConsent) {
 			let userCookiesKeywords = this.shuffleCookieKeywords(selectSuggestTerms);
 
-			console.log('this is cookies keywords');
-			console.log(userCookiesKeywords);
-
-			fetchPopularStartAsync(...userCookiesKeywords.slice(0, 4));
+			fetchRecommendedStartAsync(...userCookiesKeywords.slice(0, 4));
 		} else {
-			fetchPopularStartAsync();
+			fetchRecommendedStartAsync();
 		}
 
-		fetchRecommendedStartAsync();
+		fetchPopularStartAsync();
 	}
 
 	shuffleCookieKeywords = (cookiesArr) => {
@@ -74,7 +71,9 @@ class HomePage extends Component {
 	};
 
 	render() {
-		const { isPopularFetching, isRecommendedFetching } = this.props;
+		const { isPopularFetching, isRecommendedFetching, selectSuggestTerms } = this.props;
+		let stateChanger = selectSuggestTerms;
+		stateChanger = Math.random();
 
 		const loadingStatus = {
 			recommended: isRecommendedFetching,
@@ -87,7 +86,7 @@ class HomePage extends Component {
 					<React.Fragment key={category + i}>
 						<DisplayBoxHeading title={categories[category]} />
 						<SearchResultsDisplayWithSpinner
-							key={category + i}
+							key={category + i + stateChanger}
 							type={category}
 							isLoading={loadingStatus[category]}
 						/>

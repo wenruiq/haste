@@ -12,7 +12,7 @@ import {
 	resetFindSimilarData,
 	updateFindSimilarQuery,
 } from '../../redux/search/search.actions';
-import { selectUserSearchInput } from '../../redux/search/search.selectors';
+import { selectUserSearchInput, selectFindSimilarQuery } from '../../redux/search/search.selectors';
 
 import { addSuggestTerm } from '../../redux/suggest/suggest.actions';
 
@@ -32,16 +32,27 @@ class SearchBar extends Component {
 			addSuggestTerm,
 			resetFindSimilarData,
 			updateFindSimilarQuery,
+			selectFindSimilarQuery,
 		} = this.props;
 
 		resetFindSimilarData();
-		updateFindSimilarQuery({});
+
+		if (selectFindSimilarQuery) {
+			updateFindSimilarQuery({});
+		}
 
 		//? Uses component state for search query but also update redux store about query so that search page will update accordingly
 		const query = this.state.userInput;
+
+		if (query === '' || !query) {
+			return;
+		}
 		updateUserSearchInput(query);
 		fetchSearchStartAsync(query);
-		addSuggestTerm(query);
+
+		if (query.length > 2) {
+			addSuggestTerm(query);
+		}
 		history.push(`/search/${query}`);
 	};
 
@@ -68,6 +79,7 @@ class SearchBar extends Component {
 const mapStateToProps = () =>
 	createStructuredSelector({
 		selectUserSearchInput,
+		selectFindSimilarQuery,
 	});
 
 const mapDispatchToProps = (dispatch) => ({

@@ -16,6 +16,8 @@ import {
 	selectFindSimilarQuery,
 } from '../../redux/search/search.selectors';
 
+import { updateFindSimilarQuery, fetchSearchStartAsync } from '../../redux/search/search.actions';
+
 //* Import styling
 import './search-page.styles.scss';
 
@@ -24,7 +26,6 @@ const SearchResultsDisplayWithSpinner = WithSpinner(SearchResultsDisplay);
 const FindSimilarResultsDisplayWithSpinner = WithSpinner(FindSimilarResultsDisplay);
 
 class SearchPage extends Component {
-
 	render() {
 		const {
 			findingSimilar,
@@ -39,16 +40,14 @@ class SearchPage extends Component {
 			//? SearchResultsDisplayWithSpinner displays a spinner if still fetching, else displays the products
 			<div className='search-page-container'>
 				{findingSimilar ? (
-					<div className="similar-results-wrapper">
-						<div className="similar-items-container">
-
-						<DisplayBoxHeading title='Similar Items' />
+					<div className='similar-results-wrapper'>
+						<div className='similar-items-container'>
+							<DisplayBoxHeading title='Similar Items' />
 							<FindSimilarResultsDisplayWithSpinner
 								type='similar'
 								isLoading={selectIsSimilarSearchFetching}
 							/>
 						</div>
-
 					</div>
 				) : (
 					''
@@ -58,7 +57,7 @@ class SearchPage extends Component {
 						<DisplayBoxHeading
 							title={`${productsCount} products found for '${selectUserSearchInput}'`}
 						/>
-						<SortingDropdown className="sortBox"/>
+						<SortingDropdown className='sortBox' />
 					</div>
 				) : (
 					selectIsQuerySearchFetching || (
@@ -71,6 +70,11 @@ class SearchPage extends Component {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => ({
+	updateFindSimilarQuery: (term) => dispatch(updateFindSimilarQuery(term)),
+	fetchSearchStartAsync: (term) => dispatch(fetchSearchStartAsync(term)),
+});
+
 const mapStateToProps = createStructuredSelector({
 	selectIsQuerySearchFetching,
 	selectUserSearchInput,
@@ -78,5 +82,4 @@ const mapStateToProps = createStructuredSelector({
 	findingSimilar: selectFindSimilarQuery,
 });
 
-
-export default connect(mapStateToProps)(SearchPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

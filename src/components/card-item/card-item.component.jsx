@@ -60,7 +60,7 @@ class CardItem extends React.Component {
 	};
 
 	handleFindSimilar = () => {
-		console.log('Find similar clicked!');
+
 
 		const {
 			updateFindSimilarQuery,
@@ -103,8 +103,6 @@ class CardItem extends React.Component {
 		updateUserSearchInput(originalObj.keyword);
 		fetchSimilarStartAsync(originalObj);
 		fetchSearchStartAsync(originalObj.keyword);
-
-		console.log('Ive updated find similar query!');
 
 		history.push(`/search/${name}`);
 	};

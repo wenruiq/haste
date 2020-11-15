@@ -18,9 +18,9 @@ export const updateFindSimilarQuery = (originalObj) => ({
 });
 
 export const resetFindSimilarData = () => ({
-	type:SearchActionTypes.RESET_FIND_SIMILAR_DATA,
-	payload: []
-})
+	type: SearchActionTypes.RESET_FIND_SIMILAR_DATA,
+	payload: [],
+});
 
 const updateSortResultsDisplay = (data) => ({
 	type: SearchActionTypes.SORT_RESULTS_DISPLAY,
@@ -32,11 +32,6 @@ export const sortResultsDisplay = (sortType, data) => {
 	//* sortType can be ['default', 'pricehighlow', 'pricelowhigh', 'popularityhighlow', 'popularitylowhigh']
 
 	return (dispatch) => {
-		// console.log("DISPATCH REACHED ACTIONS, HERE'S SORT TYPE");
-		// console.log(sortType);
-		// console.log("DISPATCH REACHED ACTIONS, HERE'S QUERY DATA");
-		// console.log(data);
-
 		if (sortType === 'pricehighlow') {
 			data.sort(function (a, b) {
 				return b.price - a.price;
@@ -152,7 +147,6 @@ const convertEBayDataToOrganizedData = (data, keyword) => {
 	if (data.subtitle) {
 		description = data.subtitle[0];
 		shortenedDescription = limitDescription(data.subtitle[0], 40);
-
 	} else {
 		if (data.primaryCategory) {
 			if (data.primaryCategory[0].categoryName) {
@@ -213,9 +207,6 @@ export const fetchSearchStartAsync = (query = '', limit = 24) => {
 						}
 					}
 
-					// console.log('This is filtered best buy data');
-					// console.log(bestBuyApiActualData);
-
 					if (eBayApiData.data.findItemsByKeywordsResponse) {
 						if (eBayApiData.data.findItemsByKeywordsResponse[0].searchResult) {
 							eBayApiActualData =
@@ -223,17 +214,10 @@ export const fetchSearchStartAsync = (query = '', limit = 24) => {
 						}
 					}
 
-					// console.log('This is ebay Actual data');
-					// console.log(eBayApiActualData);
-
 					//* Convert eBay API data to match bestbuy's
 					let modifiedEBayData = eBayApiActualData.map((data) =>
 						convertEBayDataToOrganizedData(data, query)
 					);
-
-					// console.log('This is filtered ebay data');
-					// console.log(modifiedEBayData);
-
 					Array.prototype.push.apply(bestBuyApiActualData, modifiedEBayData);
 					//* Updated products['query'] into an Array of Objects
 					dispatch(fetchSearchSuccess(bestBuyApiActualData));
@@ -292,9 +276,6 @@ export const fetchRecommendedStartAsync = (
 			])
 			.then(
 				axios.spread((obj1, obj2, obj3, obj4) => {
-					// console.log('This is obj1 la');
-					// console.log(obj1);
-
 					let queryTerms = [query1, query2, query3, query4];
 					let allResults = [obj1, obj2, obj3, obj4];
 					let allProcessedResults = [];
@@ -351,19 +332,6 @@ export const fetchPopularStartAsync = (
 
 		axios
 			.all([
-				//TODO: Change to top popular categories
-				// await GetFromEbayApi.get(
-				// 	`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query1}`
-				// ),
-				// await GetFromEbayApi.get(
-				// 	`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query2}`
-				// ),
-				// await GetFromEbayApi.get(
-				// 	`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query3}`
-				// ),
-				// await GetFromEbayApi.get(
-				// 	`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query4}`
-				// ),
 				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query1}*`),
 				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query2}*`),
 				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query3}*`),
@@ -374,25 +342,6 @@ export const fetchPopularStartAsync = (
 					let queryTerms = [query1, query2, query3, query4];
 					let allResults = [obj1, obj2, obj3, obj4];
 					let allProcessedResults = [];
-
-					//* This is eBay forEach
-					// allResults.forEach((result, index) => {
-					// 	if (result.data.findItemsByKeywordsResponse) {
-					// 		if (result.data.findItemsByKeywordsResponse[0].searchResult) {
-					// 			if (result.data.findItemsByKeywordsResponse[0].searchResult[0].item) {
-					// 				allProcessedResults.push(
-					// 					convertEBayDataToOrganizedData(
-					// 						result.data.findItemsByKeywordsResponse[0].searchResult[0].item[0],
-					// 						queryTerms[index]
-					// 					)
-					// 				);
-					// 			}
-					// 		}
-					// 	}
-					// });
-
-					// console.log('This is obj1');
-					// console.log(obj1.data.data[0]);
 
 					//* This is bestbuy foreach
 					allResults.forEach((result, index) => {
@@ -480,9 +429,7 @@ export const fetchSimilarStartAsync = (originalObj) => {
 				let allProcessedResults = [];
 
 				if (response.data.findItemsByKeywordsResponse) {
-					console.log(response.data.findItemsByKeywordsResponse[0]);
 					if (response.data.findItemsByKeywordsResponse[0].searchResult) {
-						console.log(response.data.findItemsByKeywordsResponse[0].searchResult[0]);
 						if (response.data.findItemsByKeywordsResponse[0].searchResult[0].item) {
 							response.data.findItemsByKeywordsResponse[0].searchResult[0].item.forEach((item) => {
 								allProcessedResults.push(convertEBayDataToOrganizedData(item, originalObj.keyword));
@@ -490,9 +437,6 @@ export const fetchSimilarStartAsync = (originalObj) => {
 						}
 					}
 				}
-
-				console.log('This is current data at find similar');
-				console.log(allProcessedResults);
 
 				//* PROCESS ORIGINAL ITEM INTO ARRAY OF WORDS
 				let listOfOriginalNameWords = originalObj.name.split(' ');
@@ -514,10 +458,6 @@ export const fetchSimilarStartAsync = (originalObj) => {
 				});
 
 				let usedNames = [originalObj.name];
-
-				console.log('This is all processed results after filtetrring');
-				console.log(allProcessedResults);
-
 				if (allProcessedResults.length >= 3) {
 					let limit = 0;
 
@@ -527,7 +467,6 @@ export const fetchSimilarStartAsync = (originalObj) => {
 								finalResult.push(item);
 								usedNames.push(item.name);
 								limit += 1;
-								console.log('BLOOP ADDED ONE ITEM');
 							}
 						}
 					});
