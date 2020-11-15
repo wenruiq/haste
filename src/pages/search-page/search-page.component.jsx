@@ -39,13 +39,16 @@ class SearchPage extends Component {
 			//? SearchResultsDisplayWithSpinner displays a spinner if still fetching, else displays the products
 			<div className='search-page-container'>
 				{findingSimilar ? (
-					<div className="similar-items-container">
+					<div className="similar-results-wrapper">
+						<div className="similar-items-container">
 
-					<DisplayBoxHeading title='Similar Items' />
-						<FindSimilarResultsDisplayWithSpinner
-							type='similar'
-							isLoading={selectIsSimilarSearchFetching}
-						/>
+						<DisplayBoxHeading title='Similar Items' />
+							<FindSimilarResultsDisplayWithSpinner
+								type='similar'
+								isLoading={selectIsSimilarSearchFetching}
+							/>
+						</div>
+
 					</div>
 				) : (
 					''

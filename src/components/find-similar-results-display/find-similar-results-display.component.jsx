@@ -19,7 +19,7 @@ class FindSimilarResultsDisplay extends Component {
 		console.log(selectedProducts);
 
 		return (
-			<div className='search-results-display'>
+			<div className='similar-results-display'>
 				{selectedProducts
 					? selectedProducts
 							.filter((item) => item !== undefined && item !== {})
