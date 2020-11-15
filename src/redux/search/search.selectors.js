@@ -12,13 +12,18 @@ import { createSelector } from 'reselect';
 const selectSearch = (state) => state.search;
 export const selectProducts = createSelector([selectSearch], (search) => search.products);
 
-const selectQuery = createSelector([selectSearch], (search) => search.products.query);
+export const selectQuery = createSelector([selectSearch], (search) => search.products.query);
 const selectRecommended = createSelector([selectSearch], (search) => search.products.recommended);
 const selectPopular = createSelector([selectSearch], (search) => search.products.popular);
 
 export const selectUserSearchInput = createSelector(
 	[selectSearch],
 	(search) => search.userSearchInput
+);
+
+export const selectFindSimilarQuery = createSelector(
+	[selectSearch],
+	(search) => search.findSimilarQuery
 );
 
 //* Select n for number of products found in QUERY
@@ -41,6 +46,12 @@ export const selectIsQuerySearchFetching = createSelector(
 	[selectSearch],
 	(search) => search.isFetching.query
 );
+
+export const selectIsSimilarSearchFetching = createSelector(
+	[selectSearch],
+	(search) => search.isFetching.similar
+);
+
 export const selectIsRecommendedSearchFetching = createSelector(
 	[selectSearch],
 	(search) => search.isFetching.recommended

@@ -12,6 +12,70 @@ export const updateUserSearchInput = (input) => ({
 	payload: input,
 });
 
+export const updateFindSimilarQuery = (originalObj) => ({
+	type: SearchActionTypes.UPDATE_FIND_SIMILAR_QUERY,
+	payload: originalObj,
+});
+
+const updateSortResultsDisplay = (data) => ({
+	type: SearchActionTypes.SORT_RESULTS_DISPLAY,
+	payload: data,
+});
+
+export const sortResultsDisplay = (sortType, data) => {
+	//* data from selector
+	//* sortType can be ['default', 'pricehighlow', 'pricelowhigh', 'popularityhighlow', 'popularitylowhigh']
+
+	return (dispatch) => {
+		// console.log("DISPATCH REACHED ACTIONS, HERE'S SORT TYPE");
+		// console.log(sortType);
+		// console.log("DISPATCH REACHED ACTIONS, HERE'S QUERY DATA");
+		// console.log(data);
+
+		if (sortType === 'pricehighlow') {
+			data.sort(function (a, b) {
+				return b.price - a.price;
+			});
+		} else if (sortType === 'pricelowhigh') {
+			data.sort(function (a, b) {
+				return a.price - b.price;
+			});
+		} else if (sortType === 'popularityhighlow') {
+			let eBayData = data.filter((item) => {
+				return item.source === 'ebay';
+			});
+
+			let bestBuyData = data.filter((item) => {
+				return item.source === 'bestbuy';
+			});
+
+			eBayData.sort(function (a, b) {
+				return b.popularity - a.popularity;
+			});
+
+			Array.prototype.push.apply(eBayData, bestBuyData);
+			data = eBayData;
+		} else if (sortType === 'popularityhighlow') {
+			let eBayData = data.filter((item) => {
+				return item.source === 'ebay';
+			});
+
+			let bestBuyData = data.filter((item) => {
+				return item.source === 'bestbuy';
+			});
+
+			eBayData.sort(function (a, b) {
+				return a.popularity - b.popularity;
+			});
+
+			Array.prototype.push.apply(eBayData, bestBuyData);
+			data = eBayData;
+		}
+
+		dispatch(updateSortResultsDisplay(data));
+	};
+};
+
 //? Used for User Search from the Search Bar
 export const fetchSearchStart = () => ({
 	type: SearchActionTypes.FETCH_SEARCH_START,
@@ -33,20 +97,33 @@ const convertBestBuyDataToOrganizedData = (data, keyword) => {
 		image: data.image,
 		url: data.url,
 		price: data.price,
-		name: limitDescription(data.name),
-		description: limitDescription(data.description, 40),
+		name: data.name,
+		shortenedName: limitDescription(data.name),
+		description: data.description,
+		shortenedDescription: limitDescription(data.description, 40),
 	};
 };
 
 const convertEBayDataToOrganizedData = (data, keyword) => {
-	var id, name, price, image, url, description;
+	var id, name, shortenedName, price, image, url, popularity, description, shortenedDescription;
 
 	if (data.itemId) {
 		id = data.itemId[0];
 	}
 
 	if (data.title) {
-		name = limitDescription(data.title[0]);
+		name = data.title[0];
+		shortenedName = limitDescription(data.title[0]);
+	}
+
+	if (data.listingInfo) {
+		if (data.listingInfo[0].watchCount) {
+			popularity = data.listingInfo[0].watchCount[0];
+		} else {
+			popularity = 0;
+		}
+	} else {
+		popularity = 0;
 	}
 
 	if (data.sellingStatus) {
@@ -68,7 +145,8 @@ const convertEBayDataToOrganizedData = (data, keyword) => {
 	} else {
 		if (data.primaryCategory) {
 			if (data.primaryCategory[0].categoryName) {
-				description = limitDescription(data.primaryCategory[0].categoryName[0], 40);
+				description = data.primaryCategory[0].categoryName[0];
+				shortenedDescription = limitDescription(data.primaryCategory[0].categoryName[0], 40);
 			}
 		}
 	}
@@ -77,16 +155,19 @@ const convertEBayDataToOrganizedData = (data, keyword) => {
 		source: 'ebay',
 		keyword,
 		id,
+		popularity,
 		name,
+		shortenedName,
 		price,
 		image,
 		url,
 		description,
+		shortenedDescription,
 	};
 };
 
 //? Takes in an input of limit & query from the search bar
-export const fetchSearchStartAsync = (query = '', limit = 25) => {
+export const fetchSearchStartAsync = (query = '', limit = 24) => {
 	return async (dispatch) => {
 		//* Indicate to state that search is running
 		dispatch(fetchSearchStart());
@@ -125,8 +206,8 @@ export const fetchSearchStartAsync = (query = '', limit = 25) => {
 						}
 					}
 
-					console.log('This is ebay Actual data');
-					console.log(eBayApiActualData);
+					// console.log('This is ebay Actual data');
+					// console.log(eBayApiActualData);
 
 					//* Convert eBay API data to match bestbuy's
 					let modifiedEBayData = eBayApiActualData.map((data) =>
@@ -293,8 +374,8 @@ export const fetchPopularStartAsync = (
 					// 	}
 					// });
 
-					console.log('This is obj1');
-					console.log(obj1.data.data[0]);
+					// console.log('This is obj1');
+					// console.log(obj1.data.data[0]);
 
 					//* This is bestbuy foreach
 					allResults.forEach((result, index) => {
@@ -321,4 +402,112 @@ const limitDescription = (description, limit = 26) => {
 		}
 	}
 	return description;
+};
+
+export const fetchSimilarStart = () => ({
+	type: SearchActionTypes.FETCH_SIMILAR_START,
+});
+export const fetchSimilarSuccess = (result) => ({
+	type: SearchActionTypes.FETCH_SIMILAR_SUCCESS,
+	payload: result,
+});
+export const fetchSimilarFailure = (errorMessage) => ({
+	type: SearchActionTypes.FETCH_SIMILAR_FAILURE,
+	payload: errorMessage,
+});
+
+const getSimilarityIndex = (listOfOriginalNameWords, itemObject) => {
+	let similarityScore, valueScore;
+
+	let { popularity, name, description, price } = itemObject;
+
+	const similarityMultiplier = 0.3;
+	const valueMultiplier = 0.7;
+
+	//* This is the similarity test
+	//? PROCESS ORIGINAL ITEM INTO ARRAY OF WORDS
+	let listOfNameWords = name.split(' ');
+	let listOfDescriptionWords = description.split(' ');
+	//? combine the two keywords array
+	Array.prototype.push.apply(listOfNameWords, listOfDescriptionWords);
+
+	//? filter out useless matches
+	listOfNameWords.filter((value) => {
+		return !['', ' ', '.', ','].includes(value);
+	});
+
+	let numberOfWordsMatched = listOfOriginalNameWords.filter((value) =>
+		listOfNameWords.includes(value)
+	).length;
+
+	similarityScore = numberOfWordsMatched * similarityMultiplier;
+
+	//* This is the value test
+	parseInt(popularity) === 0 ? (popularity = 1) : (popularity = 0);
+
+	valueScore = (popularity / price) * valueMultiplier;
+
+	return valueScore + similarityScore;
+};
+
+export const fetchSimilarStartAsync = (originalObj) => {
+	return async (dispatch) => {
+		dispatch(fetchSimilarStart());
+
+		await GetFromEbayApi.get(
+			`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=60&keywords=${originalObj.keyword}`
+		)
+			.then((response) => {
+				let finalResult = [originalObj];
+
+				let allProcessedResults = [];
+
+				//* This is eBay forEach
+				response.forEach((result) => {
+					if (result.data.findItemsByKeywordsResponse) {
+						if (result.data.findItemsByKeywordsResponse[0].searchResult) {
+							if (result.data.findItemsByKeywordsResponse[0].searchResult[0].item) {
+								allProcessedResults.push(
+									convertEBayDataToOrganizedData(
+										result.data.findItemsByKeywordsResponse[0].searchResult[0].item[0],
+										originalObj.keyword
+									)
+								);
+							}
+						}
+					}
+				});
+
+				//* PROCESS ORIGINAL ITEM INTO ARRAY OF WORDS
+				let listOfOriginalNameWords = originalObj.name.split(' ');
+				let listOfOriginalDescriptionWords = originalObj.description.split(' ');
+				//* combine the two keywords array
+				Array.prototype.push.apply(listOfOriginalNameWords, listOfOriginalDescriptionWords);
+
+				//* filter out useless matches
+				listOfOriginalNameWords.filter((value) => {
+					return !['', ' ', '.', ','].includes(value);
+				});
+
+				//* Filter for relevance (highest to lowest)
+				allProcessedResults.sort((a, b) => {
+					return (
+						getSimilarityIndex(listOfOriginalNameWords, b) -
+						getSimilarityIndex(listOfOriginalNameWords, a)
+					);
+				});
+
+				let itemIndex = 0;
+
+				while (finalResult.length < 4) {
+					finalResult.push(allProcessedResults[itemIndex]);
+					itemIndex += 1;
+				}
+
+				dispatch(fetchSimilarSuccess(finalResult));
+			})
+			.catch((errors) => {
+				dispatch(fetchSimilarFailure(errors));
+			});
+	};
 };
