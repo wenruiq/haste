@@ -1,6 +1,7 @@
 .similar-results-display {
 	display: flex;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 @media (max-width: 770px){
