@@ -90,6 +90,10 @@ export const fetchSearchFailure = (errorMessage) => ({
 });
 
 const convertBestBuyDataToOrganizedData = (data, keyword) => {
+	if (!data.description) {
+		data.description = '';
+	}
+
 	return {
 		keyword,
 		source: 'bestbuy',
@@ -147,7 +151,13 @@ const convertEBayDataToOrganizedData = (data, keyword) => {
 			if (data.primaryCategory[0].categoryName) {
 				description = data.primaryCategory[0].categoryName[0];
 				shortenedDescription = limitDescription(data.primaryCategory[0].categoryName[0], 40);
+			} else {
+				description = '';
+				shortenedDescription = '';
 			}
+		} else {
+			description = '';
+			shortenedDescription = '';
 		}
 	}
 
