@@ -60,8 +60,6 @@ class App extends React.Component {
               savedItems.push(doc.data());
             });
             setSaved(savedItems);
-
-            console.log('%c SAVED ON SNAPSHOT SIA LA', 'color: red');
           });
         });
       }

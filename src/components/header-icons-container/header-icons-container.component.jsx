@@ -3,16 +3,21 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectSavedHidden } from '../../redux/saved/saved.selectors';
 
 import { auth } from '../../firebase/firebase.utils';
 
 import SavedItemsIcon from '../saved-items-icon/saved-items-icon.component';
+import SavedItemsDropdown from '../saved-items-dropdown/saved-items-dropdown.component';
 
 import './header-icons-container.styles.scss';
 
 const HeaderIconsContainer = ({ currentUser, hidden }) => (
   <div className="header-icons-container">
-    {currentUser ? <SavedItemsIcon /> : null}
+    <div className="saved-icon-container">
+      {currentUser ? <SavedItemsIcon /> : null}
+      {hidden ? null : <SavedItemsDropdown />}
+    </div>
     <div className="welcome-message">
       {currentUser
         ? `Welcome, ${currentUser.displayName}`
@@ -33,6 +38,7 @@ const HeaderIconsContainer = ({ currentUser, hidden }) => (
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  hidden: selectSavedHidden,
 });
 
 export default connect(mapStateToProps)(HeaderIconsContainer);

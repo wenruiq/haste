@@ -2,6 +2,11 @@ import SavedActionTypes from './saved.types';
 
 import { firestore } from '../../firebase/firebase.utils';
 
+// *Toggle the saved "cart"
+export const toggleSavedHidden = () => ({
+  type: SavedActionTypes.TOGGLE_SAVED_HIDDEN,
+});
+
 // *Set saved (this is just to update state with latest data)
 export const setSaved = savedItems => ({
   type: SavedActionTypes.SET_SAVED,
@@ -70,5 +75,35 @@ export const fetchSavedStartAsync = userID => {
         dispatch(fetchSavedSuccess(docs));
       })
       .catch(error => dispatch(fetchSavedFailure(error.message)));
+  };
+};
+
+// *Delete saved
+export const deleteSavedStart = () => ({
+  type: SavedActionTypes.DELETE_SAVED_START,
+});
+
+export const deleteSavedSuccess = productID => ({
+  type: SavedActionTypes.DELETE_SAVED_SUCCESS,
+  payload: productID,
+});
+
+export const deleteSavedFailure = errorMessage => ({
+  type: SavedActionTypes.DELETE_SAVED_FAILURE,
+  payload: errorMessage,
+});
+
+export const deleteSavedStartAsync = (userID, productID) => {
+  return dispatch => {
+    const savedRef = firestore.collection(`users/${userID}/saved`);
+    dispatch(deleteSavedStart());
+
+    savedRef
+      .doc(productID.toString(10))
+      .delete()
+      .then(snapShot => {
+        dispatch(deleteSavedSuccess(productID));
+      })
+      .catch(error => dispatch(deleteSavedFailure(error.message)));
   };
 };

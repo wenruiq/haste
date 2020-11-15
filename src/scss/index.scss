@@ -3,6 +3,24 @@ body {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  // *Scroll bar
+  // *Width
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  // *Track
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+  // *Thumb
+  ::-webkit-scrollbar-thumb {
+    background: #dddddd;
+  }
+  // *Thumb on hover
+  ::-webkit-scrollbar-thumb:hover {
+    background: #cccccc;
+  }
 }
 
 code {
@@ -16,6 +34,6 @@ code {
   box-sizing: border-box;
 }
 
-html{
+html {
   width: 100vw;
 }
