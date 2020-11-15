@@ -1,13 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectSavedItems } from '../../redux/saved/saved.selectors';
 import { addSavedStartAsync, deleteSavedStartAsync } from '../../redux/saved/saved.actions';
 
-import { updateFindSimilarQuery } from '../../redux/search/search.actions';
+import {
+	fetchSimilarStartAsync,
+	fetchSearchStartAsync,
+	updateFindSimilarQuery,
+	updateUserSearchInput,
+} from '../../redux/search/search.actions';
 
 //* Import Logos as Modules
 import BestBuy from '../../assets/brands/bestbuy-logo.png';
@@ -54,7 +59,14 @@ class CardItem extends React.Component {
 	};
 
 	handleFindSimilar = () => {
+		console.log('Find similar clicked!');
+
 		const {
+			updateFindSimilarQuery,
+			updateUserSearchInput,
+			fetchSimilarStartAsync,
+			fetchSearchStartAsync,
+			history,
 			id,
 			name,
 			shortenedName,
@@ -83,6 +95,13 @@ class CardItem extends React.Component {
 		};
 
 		updateFindSimilarQuery(originalObj);
+		updateUserSearchInput(originalObj.keyword);
+		fetchSimilarStartAsync(originalObj);
+		fetchSearchStartAsync(originalObj.keyword);
+
+		console.log('Ive updated find similar query!');
+
+		history.push(`/search/${name}`);
 	};
 
 	render() {
@@ -127,15 +146,14 @@ class CardItem extends React.Component {
 						</a>
 					</div>
 					<div className='item-pic-buttons'>
-						<Link
+						<button
 							className='button'
-							to={`/search/${shortenedName}`}
 							rel='noopener noreferrer'
 							alt='placeholder-alt'
 							onClick={() => this.handleFindSimilar()}
 						>
 							Find Similar
-						</Link>
+						</button>
 						<a
 							className='button'
 							href={url}
@@ -168,13 +186,16 @@ class CardItem extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
 	addSavedStartAsync: (userID, product) => dispatch(addSavedStartAsync(userID, product)),
 	deleteSavedStartAsync: (userID, productID) => dispatch(deleteSavedStartAsync(userID, productID)),
-	updateFindSimilarQuery: (originalObj) => dispatch(updateFindSimilarQuery(originalObj)),
+	updateFindSimilarQuery: (query) => dispatch(updateFindSimilarQuery(query)),
+	fetchSimilarStartAsync: (originalObj) => dispatch(fetchSimilarStartAsync(originalObj)),
+	updateUserSearchInput: (keyword) => dispatch(updateUserSearchInput(keyword)),
+	fetchSearchStartAsync: (keyword) => dispatch(fetchSearchStartAsync(keyword)),
 });
 
-const mapStateToProps = (state) =>
+const mapStateToProps = () =>
 	createStructuredSelector({
 		savedItems: selectSavedItems,
 		currentUser: selectCurrentUser,
 	});
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardItem);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CardItem));

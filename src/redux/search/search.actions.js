@@ -247,7 +247,7 @@ export const fetchRecommendedFailure = (errorMessage) => ({
 //* Allow 4 query values based on cookie
 //TODO: Change query to an array of keywords and use limit to forEach get query
 export const fetchRecommendedStartAsync = (
-	query1 = 'ultraboost 2.0',
+	query1 = 'ultraboost',
 	query2 = 'cap',
 	query3 = 'dvd',
 	query4 = 'zenbook'
@@ -455,28 +455,27 @@ export const fetchSimilarStartAsync = (originalObj) => {
 		dispatch(fetchSimilarStart());
 
 		await GetFromEbayApi.get(
-			`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=60&keywords=${originalObj.keyword}`
+			`/${endingParameters}&paginationInput.entriesPerPage=60&keywords=${originalObj.keyword}`
 		)
 			.then((response) => {
 				let finalResult = [originalObj];
 
 				let allProcessedResults = [];
 
-				//* This is eBay forEach
-				response.forEach((result) => {
-					if (result.data.findItemsByKeywordsResponse) {
-						if (result.data.findItemsByKeywordsResponse[0].searchResult) {
-							if (result.data.findItemsByKeywordsResponse[0].searchResult[0].item) {
-								allProcessedResults.push(
-									convertEBayDataToOrganizedData(
-										result.data.findItemsByKeywordsResponse[0].searchResult[0].item[0],
-										originalObj.keyword
-									)
-								);
-							}
+				if (response.data.findItemsByKeywordsResponse) {
+					console.log(response.data.findItemsByKeywordsResponse[0]);
+					if (response.data.findItemsByKeywordsResponse[0].searchResult) {
+						console.log(response.data.findItemsByKeywordsResponse[0].searchResult[0]);
+						if (response.data.findItemsByKeywordsResponse[0].searchResult[0].item) {
+							response.data.findItemsByKeywordsResponse[0].searchResult[0].item.forEach((item) => {
+								allProcessedResults.push(convertEBayDataToOrganizedData(item, originalObj.keyword));
+							});
 						}
 					}
-				});
+				}
+
+				console.log('This is current data at find similar');
+				console.log(allProcessedResults);
 
 				//* PROCESS ORIGINAL ITEM INTO ARRAY OF WORDS
 				let listOfOriginalNameWords = originalObj.name.split(' ');
@@ -497,11 +496,26 @@ export const fetchSimilarStartAsync = (originalObj) => {
 					);
 				});
 
-				let itemIndex = 0;
+				let usedNames = [originalObj.name];
 
-				while (finalResult.length < 4) {
-					finalResult.push(allProcessedResults[itemIndex]);
-					itemIndex += 1;
+				console.log('This is all processed results after filtetrring');
+				console.log(allProcessedResults);
+
+				if (allProcessedResults.length >= 3) {
+					let limit = 0;
+
+					allProcessedResults.forEach((item) => {
+						if (limit < 3) {
+							if (!usedNames.includes(item.name)) {
+								finalResult.push(item);
+								usedNames.push(item.name);
+								limit += 1;
+								console.log('BLOOP ADDED ONE ITEM');
+							}
+						}
+					});
+				} else {
+					Array.prototype.push.apply(finalResult, allProcessedResults);
 				}
 
 				dispatch(fetchSimilarSuccess(finalResult));

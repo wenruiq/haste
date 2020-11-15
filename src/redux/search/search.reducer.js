@@ -11,6 +11,9 @@ const INITIAL_STATE = {
 const searchReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case SearchActionTypes.UPDATE_FIND_SIMILAR_QUERY:
+			console.log('WOW IM AT UPDATE FIND SIMILAR QUERY REDUCER');
+			console.log(action.payload);
+
 			return {
 				...state,
 				findSimilarQuery: action.payload,
@@ -23,6 +26,8 @@ const searchReducer = (state = INITIAL_STATE, action) => {
 			};
 
 		case SearchActionTypes.FETCH_SIMILAR_SUCCESS:
+
+
 			return {
 				...state,
 				products: { ...state.products, similar: action.payload },
@@ -39,6 +44,9 @@ const searchReducer = (state = INITIAL_STATE, action) => {
 		//* For user search query
 
 		case SearchActionTypes.UPDATE_USER_SEARCH_INPUT:
+
+			console.log("Yay user inputted something and im at reducer")
+
 			return {
 				...state,
 				userSearchInput: action.payload,

@@ -9,8 +9,6 @@ import SortingDropdown from '../../components/sorting-dropdown/sorting-dropdown.
 import SearchResultsDisplay from '../../components/search-results-display/search-results-display.component';
 import FindSimilarResultsDisplay from '../../components/find-similar-results-display/find-similar-results-display.component';
 
-import { fetchSimilarStartAsync } from '../../redux/search/search.actions';
-
 import {
 	selectIsQuerySearchFetching,
 	selectQueryProductsCount,
@@ -26,13 +24,6 @@ const SearchResultsDisplayWithSpinner = WithSpinner(SearchResultsDisplay);
 const FindSimilarResultsDisplayWithSpinner = WithSpinner(FindSimilarResultsDisplay);
 
 class SearchPage extends Component {
-	componentDidMount() {
-		const { originalObj } = this.props;
-
-		if (originalObj) {
-			fetchSimilarStartAsync(originalObj);
-		}
-	}
 
 	render() {
 		const {
@@ -48,17 +39,18 @@ class SearchPage extends Component {
 			//? SearchResultsDisplayWithSpinner displays a spinner if still fetching, else displays the products
 			<div className='search-page-container'>
 				{findingSimilar ? (
-					<>
-						<DisplayBoxHeading title='Similar Items' />
+					<div className="similar-items-container">
+
+					<DisplayBoxHeading title='Similar Items' />
 						<FindSimilarResultsDisplayWithSpinner
 							type='similar'
 							isLoading={selectIsSimilarSearchFetching}
 						/>
-					</>
+					</div>
 				) : (
 					''
 				)}
-				{productsCount ? (
+				{productsCount && !selectIsQuerySearchFetching ? (
 					<div className='search-page-sub-header-container'>
 						<DisplayBoxHeading
 							title={`${productsCount} products found for '${selectUserSearchInput}'`}
@@ -82,5 +74,6 @@ const mapStateToProps = createStructuredSelector({
 	productsCount: selectQueryProductsCount,
 	findingSimilar: selectFindSimilarQuery,
 });
+
 
 export default connect(mapStateToProps)(SearchPage);
