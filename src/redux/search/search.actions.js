@@ -249,7 +249,7 @@ export const fetchRecommendedFailure = (errorMessage) => ({
 //TODO: Change query to an array of keywords and use limit to forEach get query
 export const fetchRecommendedStartAsync = (
 	query1 = 'ultraboost',
-	query2 = 'cap',
+	query2 = 'napkin',
 	query3 = 'dvd',
 	query4 = 'zenbook'
 ) => {
