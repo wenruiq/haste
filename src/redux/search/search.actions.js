@@ -12,9 +12,9 @@ export const updateUserSearchInput = (input) => ({
 	payload: input,
 });
 
-export const updateFindSimilarQuery = (keyword) => ({
+export const updateFindSimilarQuery = (originalObj) => ({
 	type: SearchActionTypes.UPDATE_FIND_SIMILAR_QUERY,
-	payload: keyword,
+	payload: originalObj,
 });
 
 const updateSortResultsDisplay = (data) => ({
@@ -97,20 +97,23 @@ const convertBestBuyDataToOrganizedData = (data, keyword) => {
 		image: data.image,
 		url: data.url,
 		price: data.price,
-		name: limitDescription(data.name),
-		description: limitDescription(data.description, 40),
+		name: data.name,
+		shortenedName: limitDescription(data.name),
+		description: data.description,
+		shortenedDescription: limitDescription(data.description, 40),
 	};
 };
 
 const convertEBayDataToOrganizedData = (data, keyword) => {
-	var id, name, price, image, url, popularity, description;
+	var id, name, shortenedName, price, image, url, popularity, description, shortenedDescription;
 
 	if (data.itemId) {
 		id = data.itemId[0];
 	}
 
 	if (data.title) {
-		name = limitDescription(data.title[0]);
+		name = data.title[0];
+		shortenedName = limitDescription(data.title[0]);
 	}
 
 	if (data.listingInfo) {
@@ -142,7 +145,8 @@ const convertEBayDataToOrganizedData = (data, keyword) => {
 	} else {
 		if (data.primaryCategory) {
 			if (data.primaryCategory[0].categoryName) {
-				description = limitDescription(data.primaryCategory[0].categoryName[0], 40);
+				description = data.primaryCategory[0].categoryName[0];
+				shortenedDescription = limitDescription(data.primaryCategory[0].categoryName[0], 40);
 			}
 		}
 	}
@@ -153,10 +157,12 @@ const convertEBayDataToOrganizedData = (data, keyword) => {
 		id,
 		popularity,
 		name,
+		shortenedName,
 		price,
 		image,
 		url,
 		description,
+		shortenedDescription,
 	};
 };
 

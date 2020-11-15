@@ -3,8 +3,8 @@ import { SearchActionTypes } from './search.types';
 const INITIAL_STATE = {
 	userSearchInput: '',
 	findSimilarQuery: {},
-	products: { query: [], recommended: [], popular: [], similar: [] },
-	isFetching: { query: false, recommended: false, popular: false, similar: [] },
+	products: { similar: [], query: [], recommended: [], popular: [] },
+	isFetching: { similar: false, query: false, recommended: false, popular: false },
 	errorMessage: undefined,
 };
 
