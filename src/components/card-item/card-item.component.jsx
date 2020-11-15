@@ -10,9 +10,8 @@ import {
 } from '../../redux/saved/saved.actions';
 
 //* Import Logos as Modules
-import Shopee from '../../assets/brands/shopee-logo.png';
+import BestBuy from '../../assets/brands/bestbuy-logo.png';
 import eBay from '../../assets/brands/ebay-logo.png';
-import Lazada from '../../assets/brands/lazada-logo.png';
 
 import './card-item.styles.scss';
 
