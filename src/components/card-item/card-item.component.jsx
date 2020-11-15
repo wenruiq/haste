@@ -14,28 +14,28 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 // *import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 class CardItem extends React.Component {
-  handleSave = () => {
-    const {
-      id,
-      name,
-      description,
-      price,
-      image,
-      url,
-      addSavedStartAsync,
-      currentUser,
-    } = this.props;
+	handleSave = () => {
+		const {
+			id,
+			name,
+			description,
+			price,
+			image,
+			url,
+			addSavedStartAsync,
+			currentUser,
+		} = this.props;
 
-    const productToBeAdded = {
-      id,
-      name,
-      description,
-      price,
-      image,
-      url,
-    };
-    addSavedStartAsync(currentUser.id, productToBeAdded);
-  };
+		const productToBeAdded = {
+			id,
+			name,
+			description,
+			price,
+			image,
+			url,
+		};
+		addSavedStartAsync(currentUser.id, productToBeAdded);
+	};
 
 	render() {
 		const { name, description, source, price, image, url, currentUser } = this.props;
@@ -86,7 +86,7 @@ class CardItem extends React.Component {
 							</div>
 						</div>
 
-						<div className='item-price'>{price || '$35.00'}</div>
+						<div className='item-price'>{'$' + price || '$35.00'}</div>
 					</div>
 				</div>
 			</div>

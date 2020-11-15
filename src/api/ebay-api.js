@@ -8,7 +8,6 @@ const appKey = 'LifuHuan-haste-PRD-25007f986-39451291';
 const operationName = 'findItemsByKeywords';
 const version = '1.0.0';
 const returnDataType = 'JSON';
-const entriesPerPage = 25; // Mutable
 const GlobalID = 'EBAY-SG';
 const siteID = 216; // 216 means eBay Singapore
 
@@ -19,7 +18,6 @@ url += '&SECURITY-APPNAME=' + appKey;
 url += '&SERVICE-VERSION=' + version;
 url += '&GLOBAL-ID=' + GlobalID;
 url += '&siteid=' + siteID;
-url += '&paginationInput.entriesPerPage=' + entriesPerPage;
 url += '&RESPONSE-DATA-FORMAT=' + returnDataType;
 // url += '&callback=_cb_findItemsByKeywords';
 url += '&REST-PAYLOAD';
