@@ -1,21 +1,41 @@
 import React from 'react';
-// SavedItem is a component to be written
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
-// This is the toggle-able dropdown from SavedItemsIcon
-const SavedItemsDropdown = () => (
-	//* Wrapper for the dropdown
-	<div className="saved-items-dropdown-container">
-		{/* //*Div to display dropdown items  */}
-		<div className="saved-items-container">
-		{/* //*Display list of <SavedItems></SavedItems> using .map
-		//* Display this message when nothing is saved */}
-			<div className="empty-message-container">
-				There is nothing here
-			</div>
-		</div>
-		{/* //* Button to access saved items */}
-		<a className="saved-items-dropdown-button"></a>
-	</div>
+import CustomButton from '../custom-button/custom-button.component';
+import SavedCartItem from '../saved-cart-item/saved-cart-item.component';
+import { selectSavedItems } from '../../redux/saved/saved.selectors';
+import { toggleSavedHidden } from '../../redux/saved/saved.actions';
+
+import './saved-items-dropdown.styles.scss';
+
+const SavedItemsDropdown = ({ savedItems, history, dispatch }) => (
+  <div className={`saved-dropdown ${savedItems.length ? '' : 'empty'}`}>
+    <div className={`saved-items${savedItems.length ? '' : '-empty'}`}>
+      {savedItems.length ? (
+        savedItems.map(savedItem => (
+          <SavedCartItem key={savedItem.id} savedItem={savedItem} />
+        ))
+      ) : (
+        <span className="empty-message">Your saved list is empty</span>
+      )}
+    </div>
+    {savedItems.length ? (
+      <CustomButton
+        onClick={() => {
+          history.push('/saved');
+          dispatch(toggleSavedHidden());
+        }}
+      >
+        View Full List
+      </CustomButton>
+    ) : null}
+  </div>
 );
 
-export default SavedItemsDropdown;
+const mapStateToProps = createStructuredSelector({
+  savedItems: selectSavedItems,
+});
+
+export default withRouter(connect(mapStateToProps)(SavedItemsDropdown));
