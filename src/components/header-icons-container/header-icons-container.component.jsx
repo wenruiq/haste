@@ -20,7 +20,7 @@ const HeaderIconsContainer = ({ currentUser, hidden }) => (
     </div>
     <div className="welcome-message">
       {currentUser
-        ? `Welcome, ${currentUser.displayName}`
+        ? `${currentUser.displayName}`
         : `Welcome to Haste !`}
     </div>
     <div className="divider"></div>

@@ -15,7 +15,10 @@ const SavedItemsDropdown = ({ savedItems, history, dispatch }) => (
     <div className={`saved-items${savedItems.length ? '' : '-empty'}`}>
       {savedItems.length ? (
         savedItems.map(savedItem => (
-          <SavedCartItem key={savedItem.id + "-cartSavedItem"} savedItem={savedItem} />
+          <SavedCartItem
+            key={savedItem.id + Math.random()}
+            savedItem={savedItem}
+          />
         ))
       ) : (
         <span className="empty-message">Your saved list is empty</span>

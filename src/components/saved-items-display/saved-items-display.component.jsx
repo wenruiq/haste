@@ -13,7 +13,7 @@ const SavedItemsDisplay = ({ savedItems }) => {
     <div className="saved-items-display">
       {savedItems
         ? savedItems.map(item => (
-            <CardItem key={item.id + "-pageSavedItem"} {...item} />
+            <CardItem key={item.id + Math.random()} {...item} />
           ))
         : ''}
     </div>

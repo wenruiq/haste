@@ -6,6 +6,7 @@
   height: 38px;
   margin-top: 7px;
   position: relative;
+  min-width: 300px;
 
   .welcome-message {
     text-align: center;
@@ -13,9 +14,10 @@
     font-size: 18px;
     color: white;
     cursor: default;
+    margin: 0 10px;
   }
-  
-  .saved-icon-container{
+
+  .saved-icon-container {
     position: relative;
   }
 
@@ -32,5 +34,35 @@
     text-decoration: none;
     font-weight: 400;
     cursor: pointer;
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .header-icons-container {
+    .welcome-message {
+      font-size: 16px;
+    }
+
+    .styled-link {
+      font-size: 16px;
+      margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .header-icons-container {
+    padding: 0 12px;
+    max-height: 65px;
+    .welcome-message {
+      font-size: 16px;
+    }
+
+    .styled-link {
+      font-size: 16px;
+      margin-right: 10px;
+      margin-left: 10px;
+    }
   }
 }

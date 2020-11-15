@@ -1,18 +1,29 @@
 @import '../../scss/config';
 
 .header {
-	background-color: $main-color;
-	height: $nav-height;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  background-color: $main-color;
+  height: $nav-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	.wrapper {
-		width: $website-width;
-		display: flex;
-		align-items: center;
+  .wrapper {
+    width: $website-width;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     height: 100%;
     padding-bottom: 5px;
-	}
+  }
+}
+
+@media (max-width: 850px) {
+  .header {
+    height: 100%;
+    width: 100%;
+    .wrapper {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
 }
