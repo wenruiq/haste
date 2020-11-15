@@ -14,14 +14,19 @@ import './header-icons-container.styles.scss';
 
 const HeaderIconsContainer = ({ currentUser, hidden }) => (
   <div className="header-icons-container">
-    <div className="saved-icon-container">
+    {currentUser ? (
+      <div className="saved-icon-container">
+        <SavedItemsIcon />
+        {hidden ? null : <SavedItemsDropdown />}
+      </div>
+    ) : null}
+
+    {/* <div className="saved-icon-container">
       {currentUser ? <SavedItemsIcon /> : null}
       {hidden ? null : <SavedItemsDropdown />}
-    </div>
+    </div> */}
     <div className="welcome-message">
-      {currentUser
-        ? `${currentUser.displayName}`
-        : `Welcome to Haste !`}
+      {currentUser ? `${currentUser.displayName}` : `Welcome to Haste !`}
     </div>
     <div className="divider"></div>
     {currentUser ? (

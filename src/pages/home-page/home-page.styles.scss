@@ -6,3 +6,30 @@
   margin: 10px auto;
   flex-direction: column;
 }
+
+@media (max-width: 1216px){
+  .home-page-container{
+    margin-left: 144px;
+  }
+}
+
+@media (max-width: 1100px){
+  .home-page-container{
+    margin-left: 177px;
+    
+  }
+}
+
+@media (max-width: 920px){
+  .home-page-container{
+    margin-left: 88px;
+    
+  }
+}
+
+@media (max-width: 770px){
+  .home-page-container{
+    margin-left: 0px;
+    
+  }
+}

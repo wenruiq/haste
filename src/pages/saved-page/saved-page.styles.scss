@@ -6,3 +6,37 @@
   margin: 10px auto;
   flex-direction: column;
 }
+
+@media (max-width: 1216px){
+  .saved-page-container{
+    margin-left: 144px;
+  }
+}
+
+@media (max-width: 1100px){
+  .saved-page-container{
+    margin-left: 177px;
+    
+  }
+}
+
+@media (max-width: 920px){
+  .saved-page-container{
+    margin-left: 88px;
+    
+  }
+}
+
+@media (max-width: 770px){
+  .saved-page-container{
+    margin-left: 0px;
+    
+  }
+}
+
+// @media (max-width: 535px){
+//   .saved-page-container{
+//     margin-left: 19px;
+    
+//   }
+// }

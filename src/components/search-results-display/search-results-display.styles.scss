@@ -1,4 +1,10 @@
 .search-results-display {
 	display: flex;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 770px){
+  .search-results-display {
+    justify-content: center;
+  }
 }

@@ -48,6 +48,7 @@ class CardItem extends React.Component {
       url,
       keyword,
     };
+    console.log(productToBeAdded);
 
     if (!!productToBeAdded.id) {
       addSavedStartAsync(currentUser.id, productToBeAdded);
@@ -155,7 +156,20 @@ class CardItem extends React.Component {
               View Details
             </a>
           </div>
-          <div className="item-details-container">
+          <div className="item-info-wrapper">
+            <div className="item-info-name">
+              {(shortenedName ? shortenedName : name) || 'Gray Polo Shirt'}
+            </div>
+            <div className="item-info-description-price">
+              <div className="item-description">
+                {(shortenedDescription ? shortenedDescription : description) ||
+                  'Light gray shirt made with 100% cotton in China'}
+              </div>
+              <div className="item-pricetag">{'$' + price || '$35.00'}</div>
+            </div>
+          </div>
+
+          {/* <div className="item-details-container">
             <div className="item-description-container">
               <div className="item-description-primary">
                 {(shortenedName ? shortenedName : name) || 'Gray Polo Shirt'}
@@ -165,9 +179,8 @@ class CardItem extends React.Component {
                   'Light gray shirt made with 100% cotton in China'}
               </div>
             </div>
-
             <div className="item-price">{'$' + price || '$35.00'}</div>
-          </div>
+          </div> */}
         </div>
       </div>
     );
