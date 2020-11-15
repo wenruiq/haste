@@ -17,6 +17,11 @@ export const updateFindSimilarQuery = (originalObj) => ({
 	payload: originalObj,
 });
 
+export const resetFindSimilarData = () => ({
+	type:SearchActionTypes.RESET_FIND_SIMILAR_DATA,
+	payload: []
+})
+
 const updateSortResultsDisplay = (data) => ({
 	type: SearchActionTypes.SORT_RESULTS_DISPLAY,
 	payload: data,
@@ -146,6 +151,8 @@ const convertEBayDataToOrganizedData = (data, keyword) => {
 
 	if (data.subtitle) {
 		description = data.subtitle[0];
+		shortenedDescription = limitDescription(data.subtitle[0], 40);
+
 	} else {
 		if (data.primaryCategory) {
 			if (data.primaryCategory[0].categoryName) {

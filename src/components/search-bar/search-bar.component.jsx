@@ -6,8 +6,15 @@ import { createStructuredSelector } from 'reselect';
 import SearchIcon from '@material-ui/icons/Search';
 
 //* Redux Import
-import { fetchSearchStartAsync, updateUserSearchInput } from '../../redux/search/search.actions';
+import {
+	fetchSearchStartAsync,
+	updateUserSearchInput,
+	resetFindSimilarData,
+	updateFindSimilarQuery,
+} from '../../redux/search/search.actions';
 import { selectUserSearchInput } from '../../redux/search/search.selectors';
+
+import { addSuggestTerm } from '../../redux/suggest/suggest.actions';
 
 import './search-bar.styles.scss';
 
@@ -18,12 +25,23 @@ class SearchBar extends Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		const { fetchSearchStartAsync, history, updateUserSearchInput } = this.props;
+		const {
+			fetchSearchStartAsync,
+			history,
+			updateUserSearchInput,
+			addSuggestTerm,
+			resetFindSimilarData,
+			updateFindSimilarQuery,
+		} = this.props;
+
+		resetFindSimilarData();
+		updateFindSimilarQuery({});
 
 		//? Uses component state for search query but also update redux store about query so that search page will update accordingly
 		const query = this.state.userInput;
 		updateUserSearchInput(query);
 		fetchSearchStartAsync(query);
+		addSuggestTerm(query);
 		history.push(`/search/${query}`);
 	};
 
@@ -55,6 +73,9 @@ const mapStateToProps = () =>
 const mapDispatchToProps = (dispatch) => ({
 	fetchSearchStartAsync: (query) => dispatch(fetchSearchStartAsync(query)),
 	updateUserSearchInput: (input) => dispatch(updateUserSearchInput(input)),
+	addSuggestTerm: (term) => dispatch(addSuggestTerm(term)),
+	resetFindSimilarData: (term) => dispatch(resetFindSimilarData(term)),
+	updateFindSimilarQuery: () => dispatch(updateFindSimilarQuery()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));

@@ -5,16 +5,14 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectSavedItems } from '../../redux/saved/saved.selectors';
-import {
-  addSavedStartAsync,
-  deleteSavedStartAsync,
-} from '../../redux/saved/saved.actions';
+import { addSavedStartAsync, deleteSavedStartAsync } from '../../redux/saved/saved.actions';
 
 import {
 	fetchSimilarStartAsync,
 	fetchSearchStartAsync,
 	updateFindSimilarQuery,
 	updateUserSearchInput,
+	resetFindSimilarData,
 } from '../../redux/search/search.actions';
 
 //* Import Logos as Modules
@@ -66,6 +64,7 @@ class CardItem extends React.Component {
 
 		const {
 			updateFindSimilarQuery,
+			resetFindSimilarData,
 			updateUserSearchInput,
 			fetchSimilarStartAsync,
 			fetchSearchStartAsync,
@@ -82,6 +81,9 @@ class CardItem extends React.Component {
 			addSavedStartAsync,
 			currentUser,
 		} = this.props;
+
+		updateFindSimilarQuery({});
+		resetFindSimilarData();
 
 		const originalObj = {
 			id,
@@ -167,18 +169,18 @@ class CardItem extends React.Component {
 							View Details
 						</a>
 					</div>
-					<div className="item-info-wrapper">
-            <div className="item-info-name">
-              {(shortenedName ? shortenedName : name) || 'Gray Polo Shirt'}
-            </div>
-            <div className="item-info-description-price">
-              <div className="item-description">
-                {(shortenedDescription ? shortenedDescription : description) ||
-                  'Light gray shirt made with 100% cotton in China'}
-              </div>
-              <div className="item-pricetag">{'$' + price || '$35.00'}</div>
-            </div>
-          </div>
+					<div className='item-info-wrapper'>
+						<div className='item-info-name'>
+							{(shortenedName ? shortenedName : name) || 'Gray Polo Shirt'}
+						</div>
+						<div className='item-info-description-price'>
+							<div className='item-description'>
+								{(shortenedDescription ? shortenedDescription : description) ||
+									'Light gray shirt made with 100% cotton in China'}
+							</div>
+							<div className='item-pricetag'>{'$' + price || '$35.00'}</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		);
@@ -192,6 +194,7 @@ const mapDispatchToProps = (dispatch) => ({
 	fetchSimilarStartAsync: (originalObj) => dispatch(fetchSimilarStartAsync(originalObj)),
 	updateUserSearchInput: (keyword) => dispatch(updateUserSearchInput(keyword)),
 	fetchSearchStartAsync: (keyword) => dispatch(fetchSearchStartAsync(keyword)),
+	resetFindSimilarData: () => dispatch(resetFindSimilarData()),
 });
 
 const mapStateToProps = () =>
