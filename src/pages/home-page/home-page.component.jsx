@@ -12,6 +12,7 @@ import SearchResultsDisplay from '../../components/search-results-display/search
 //* Redux Import
 import {
 	fetchPopularStartAsync,
+	updateFindSimilarQuery,
 	fetchRecommendedStartAsync,
 } from '../../redux/search/search.actions';
 
@@ -22,6 +23,8 @@ import {
 	selectPopularProductsCount,
 } from '../../redux/search/search.selectors';
 
+import { selectSuggestConsent, selectSuggestTerms } from '../../redux/suggest/suggest.selectors';
+
 const categories = { recommended: 'You Might Like', popular: 'Popular' };
 
 //* Wrap SearchResultsDisplay with Spinner HOC
@@ -29,10 +32,46 @@ const SearchResultsDisplayWithSpinner = WithSpinner(SearchResultsDisplay);
 
 class HomePage extends Component {
 	componentDidMount() {
-		const { fetchRecommendedStartAsync, fetchPopularStartAsync } = this.props;
+		const {
+			fetchRecommendedStartAsync,
+			fetchPopularStartAsync,
+			selectSuggestConsent,
+			selectSuggestTerms,
+			updateFindSimilarQuery,
+		} = this.props;
+
+		updateFindSimilarQuery({});
+
+		if (selectSuggestConsent) {
+			let userCookiesKeywords = this.shuffleCookieKeywords(selectSuggestTerms);
+
+			console.log('this is cookies keywords');
+			console.log(userCookiesKeywords);
+
+			fetchPopularStartAsync(...userCookiesKeywords.slice(0, 4));
+		} else {
+			fetchPopularStartAsync();
+		}
+
 		fetchRecommendedStartAsync();
-		fetchPopularStartAsync();
 	}
+
+	shuffleCookieKeywords = (cookiesArr) => {
+		let currentIndex = cookiesArr.length,
+			temporaryValue,
+			randomIndex;
+
+		while (0 !== currentIndex) {
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex -= 1;
+
+			temporaryValue = cookiesArr[currentIndex];
+			cookiesArr[currentIndex] = cookiesArr[randomIndex];
+			cookiesArr[randomIndex] = temporaryValue;
+		}
+
+		return cookiesArr;
+	};
 
 	render() {
 		const { isPopularFetching, isRecommendedFetching } = this.props;
@@ -64,12 +103,15 @@ const mapStateToProps = createStructuredSelector({
 	isRecommendedFetching: selectIsRecommendedSearchFetching,
 	selectRecommendedProductsCount,
 	selectPopularProductsCount,
+	selectSuggestConsent,
+	selectSuggestTerms,
 });
 
 //TODO: Utilize cookies to make these 2 requests in the future
 const mapDispatchToProps = (dispatch) => ({
 	fetchRecommendedStartAsync: () => dispatch(fetchRecommendedStartAsync()),
 	fetchPopularStartAsync: () => dispatch(fetchPopularStartAsync()),
+	updateFindSimilarQuery: (obj) => dispatch(updateFindSimilarQuery(obj)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

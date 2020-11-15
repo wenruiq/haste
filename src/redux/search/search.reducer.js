@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 	errorMessage: undefined,
 };
 
+
 const searchReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case SearchActionTypes.UPDATE_FIND_SIMILAR_QUERY:
@@ -17,6 +18,12 @@ const searchReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				findSimilarQuery: action.payload,
+			};
+
+		case SearchActionTypes.RESET_FIND_SIMILAR_DATA:
+			return {
+				...state,
+				products: {...state.products, similar:action.payload}
 			};
 
 		case SearchActionTypes.FETCH_SIMILAR_START:
