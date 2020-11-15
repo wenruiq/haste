@@ -107,11 +107,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
-		a {
-			display: flex;
-			justify-content: center;
-      align-items: center;
-      width: 100%;
+
 			img {
 				height: 90%;
 				width: 90%;
@@ -119,7 +115,6 @@
 				max-height: 200px;
 				max-width: 200px;
 			}
-		}
 	}
 
 	.item-details-container {
