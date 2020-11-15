@@ -1,15 +1,31 @@
 @import '../../scss/config.scss';
 
 .display-box-heading {
-	padding: 12px 5px;
-	text-align: left;
-	color: $main-color;
-	font-size: 35px;
-	font-weight: 300;
+  padding: 12px 5px;
+  text-align: left;
+  color: $main-color;
+  font-size: 35px;
+  font-weight: 300;
 }
 
 @media (max-width: 1100px) {
-	.display-box-heading {
-		margin-left: 15px;
-	}
+  .display-box-heading {
+    margin-left: 15px;
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 764px) {
+  .display-box-heading {
+    text-align: center;
+
+  }
+}
+
+@media (max-width: 380px) {
+  .display-box-heading {
+    text-align: center;
+    font-size: 20px;
+    margin: auto;
+  }
 }

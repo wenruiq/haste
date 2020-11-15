@@ -2,3 +2,9 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+@media (max-width: 770px){
+  .saved-items-display {
+    justify-content: center;
+  }
+}

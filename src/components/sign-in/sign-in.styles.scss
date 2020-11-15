@@ -2,6 +2,7 @@
 
 .sign-in-container {
   flex-basis: 45%;
+  margin-bottom: 50px;
 
   .sign-in-title {
     margin-left: 10px;
@@ -32,3 +33,10 @@
     }
   }
 }
+
+@media (max-width: 1135px) {
+  .sign-in-container {
+    margin-bottom: 50px;
+  }
+}
+

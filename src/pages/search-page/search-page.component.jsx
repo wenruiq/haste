@@ -55,7 +55,7 @@ class SearchPage extends Component {
 						<DisplayBoxHeading
 							title={`${productsCount} products found for '${selectUserSearchInput}'`}
 						/>
-						<SortingDropdown />
+						<SortingDropdown className="sortBox"/>
 					</div>
 				) : (
 					selectIsQuerySearchFetching || (

@@ -6,9 +6,27 @@
   padding-top: 35px;
 
   .sign-in-sign-up-container {
-    width: $website-width;
+    max-width: $website-width;
     display: flex;
     justify-content: space-between;
     margin: auto;
+  }
+}
+
+@media (max-width: 1264px) {
+  .sign-in-sign-up-wrapper {
+    .sign-in-sign-up-container {
+      margin: 0 50px;
+    }
+  }
+}
+
+@media (max-width: 1135px) {
+  .sign-in-sign-up-wrapper {
+    height: 100%;
+    .sign-in-sign-up-container {
+      flex-direction: column;
+      justify-content: space-between;
+    }
   }
 }

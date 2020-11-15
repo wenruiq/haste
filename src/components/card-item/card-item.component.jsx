@@ -5,7 +5,10 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectSavedItems } from '../../redux/saved/saved.selectors';
-import { addSavedStartAsync, deleteSavedStartAsync } from '../../redux/saved/saved.actions';
+import {
+  addSavedStartAsync,
+  deleteSavedStartAsync,
+} from '../../redux/saved/saved.actions';
 
 import {
 	fetchSimilarStartAsync,
@@ -164,19 +167,18 @@ class CardItem extends React.Component {
 							View Details
 						</a>
 					</div>
-					<div className='item-details-container'>
-						<div className='item-description-container'>
-							<div className='item-description-primary'>
-								{(shortenedName ? shortenedName : name) || 'Gray Polo Shirt'}
-							</div>
-							<div className='item-description-secondary'>
-								{(shortenedDescription ? shortenedDescription : description) ||
-									'Light gray shirt made with 100% cotton in China'}
-							</div>
-						</div>
-
-						<div className='item-price'>{'$' + price || '$35.00'}</div>
-					</div>
+					<div className="item-info-wrapper">
+            <div className="item-info-name">
+              {(shortenedName ? shortenedName : name) || 'Gray Polo Shirt'}
+            </div>
+            <div className="item-info-description-price">
+              <div className="item-description">
+                {(shortenedDescription ? shortenedDescription : description) ||
+                  'Light gray shirt made with 100% cotton in China'}
+              </div>
+              <div className="item-pricetag">{'$' + price || '$35.00'}</div>
+            </div>
+          </div>
 				</div>
 			</div>
 		);
