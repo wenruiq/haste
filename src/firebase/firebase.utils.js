@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
+//*Database
 import 'firebase/firestore';
+//*Authentication
 import 'firebase/auth';
 
 const config = {
@@ -23,15 +25,15 @@ export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
+// *Choose google sign in to be popup form
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
-
   const userRef = firestore.doc(`users/${userAuth.uid}`);
-
   const snapShot = await userRef.get();
-
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();

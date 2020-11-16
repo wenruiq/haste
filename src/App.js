@@ -21,6 +21,7 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 import { fetchSavedStartAsync, setSaved } from './redux/saved/saved.actions';
 import { selectSuggestConsent } from './redux/suggest/suggest.selectors';
 
+// *Class based component
 class App extends React.Component {
 	unsubscribeFromAuth = null;
 
@@ -39,7 +40,8 @@ class App extends React.Component {
 				// *Create user document in firebase on first login
 				// *userRef is firestore.doc(`users/${userAuth.uid}`);
 				const userRef = await createUserProfileDocument(userAuth);
-
+        
+        // *onSnapshot listens to userRef
 				userRef.onSnapshot(async (snapShot) => {
 					// *Put user data into state
 					setCurrentUser({
@@ -86,7 +88,8 @@ class App extends React.Component {
 					<Route
 						exact
 						path='/signin'
-						render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignInPage />)}
+            render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignInPage />)}
+            
 					/>
 					<Route exact path='/saved' component={SavedPage} />
 				</Switch>
