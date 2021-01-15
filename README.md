@@ -1,7 +1,7 @@
 <p align="center">
 
 <img src="https://user-images.githubusercontent.com/58852708/95030232-e9ce8980-06e0-11eb-9122-62ea14628bd7.png" width="800px"/>
-<h3 align="center">Haste (Work in Progress)</h3>
+<h3 align="center">Haste</h3>
 <p align="center">
   Search for the best products across multiple e-commerce platforms
   </br>
@@ -37,7 +37,7 @@ Haste is an one-stop website for users to find the cheapest products across e-co
 
 Using the APIs offered by these platforms, Haste uses an algorithm to find similar products at cheaper prices
 
-This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) and [Wenrui](https://github.com/wenruiq), it is still ***under development***
+This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) and [Wenrui](https://github.com/wenruiq).
 
 
 ### Built With
@@ -53,12 +53,12 @@ This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) a
 ### Sign in with Google
 <img src="http://g.recordit.co/CM4Q68ruRd.gif" width="800px" />
 
-### Search for products across platforms
+### Search for products
 <img src="http://g.recordit.co/atabWkhXYT.gif" width="800px" />
 
-* Find similar products & recommend better deals (Work in progress)
-* Save products (Work in progress)
+### Save & remove products (picture coming soon)
 
+### Find similar products (picture coming soon)
 
 
 ## Getting Started
