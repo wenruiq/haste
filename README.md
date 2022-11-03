@@ -3,7 +3,7 @@
 <img src="https://user-images.githubusercontent.com/58852708/95030232-e9ce8980-06e0-11eb-9122-62ea14628bd7.png" width="800px"/>
 <h3 align="center">Haste</h3>
 <p align="center">
-  Search for the best products across multiple e-commerce platforms
+  Search for the best products across multiple e-commerce platforms on this one-stop web app built with ReactJS, Redux, Sass & Firebase
   </br>
   </br>
   <a href="https://admiring-noether-c3bf69.netlify.app"><strong>View Demo »</strong></a>
