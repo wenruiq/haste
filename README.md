@@ -5,7 +5,12 @@
 <p align="center">
   Search for the best products across multiple e-commerce platforms
   </br>
+  </br>
   <a href="https://admiring-noether-c3bf69.netlify.app"><strong>View Demo »</strong></a>
+  </br>
+  <b>The above live demo site is no longer fully functional as we exceeded some APIs' free request limits</b>
+  </br>
+  Scroll down to the "Key Features" section for the pre-recorded alternate demos
   </br>
   </br>
   <a href="https://github.com/wenruiq/haste">Explore the docs</a> · 
@@ -20,6 +25,10 @@
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
 * [Key Features](#key-features)
+  * [Sign in with Google](#sign-in-with-google)
+  * [Search for Products](#search-for-products)
+  * [Save and Remove Products](#save-and-remove-products)
+  * [Find Similar Products](#find-similar-products)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -56,9 +65,10 @@ This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) a
 ### Search for products
 <img src="http://g.recordit.co/atabWkhXYT.gif" width="800px" />
 
-### Save & remove products (picture coming soon)
+### Save and remove products
+<img src="http://g.recordit.co/El60SllzSH.gif" width="800px" />
 
-### Find similar products (picture coming soon)
+### Find similar products
 
 
 ## Getting Started
