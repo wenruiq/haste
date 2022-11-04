@@ -8,7 +8,7 @@
   </br>
   <a href="https://admiring-noether-c3bf69.netlify.app"><strong>View Demo »</strong></a>
   </br>
-  <b>The above live demo site is no longer fully functional as we exceeded some APIs' free request limits</b>
+  <b>**The above live demo site is no longer fully functional as we exceeded some APIs' free request limits**</b>
   </br>
   Scroll down to the "Key Features" section for the pre-recorded alternate demos
   </br>
