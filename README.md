@@ -42,7 +42,7 @@
   
 ## About the Project
 
-Haste is an one-stop website for users to find the cheapest products across e-commerce platforms
+Haste is a one-stop website for users to find the cheapest products across e-commerce platforms
 
 Using the APIs offered by these platforms, Haste uses an algorithm to find similar products at cheaper prices
 
