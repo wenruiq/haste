@@ -6,7 +6,7 @@ let baseURL =
 
 const appKey = 'LifuHuan-haste-PRD-25007f986-39451291';
 const operationName = 'findItemsByKeywords';
-const version = '1.0.0';
+const version = '1.13.0';
 const returnDataType = 'JSON';
 const GlobalID = 'EBAY-SG';
 const siteID = 216; // 216 means eBay Singapore
