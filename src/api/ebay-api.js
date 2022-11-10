@@ -27,6 +27,7 @@ url += '&REST-PAYLOAD';
 // Attach &keywords='something'
 export const GetFromEbayApi = axios.create({
 	baseURL,
+	withCredentials: true
 });
 
 export const endingParameters = url;
