@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-//* Base: Find Items By Keywords
+//* Base: Find Items By Keywords 
+//* New meta cors anywhere (nov 2022)
 let baseURL =
-	'https://svcs.ebay.com/services/search/FindingService';
+	'https://proxy.cors.sh/https://svcs.ebay.com/services/search/FindingService';
 	// 'https://cors-anywhere.herokuapp.com/https://svcs.ebay.com/services/search/FindingService';
-
 
 const appKey = 'LifuHuan-haste-PRD-25007f986-39451291';
 const operationName = 'findItemsByKeywords';
