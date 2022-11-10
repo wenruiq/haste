@@ -30,7 +30,9 @@ import { selectSuggestConsent } from './redux/suggest/suggest.selectors';
 	let open = XMLHttpRequest.prototype.open;
 	XMLHttpRequest.prototype.open = function() {
 			let args = slice.call(arguments);
-			let targetOrigin = "/^https?:\/\/([^\/]+)/i.exec(args[1])";
+			/*eslint-disable no-useless-escape*/
+			let targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+			/*eslint-enable */
 			if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
 					targetOrigin[1] !== cors_api_host) {
 					args[1] = cors_api_url + args[1];
