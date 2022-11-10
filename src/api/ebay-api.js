@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
 //* Base: Find Items By Keywords 
 //* New meta cors anywhere (nov 2022)
 let baseURL =
@@ -27,6 +29,8 @@ url += '&REST-PAYLOAD';
 // Attach &keywords='something'
 export const GetFromEbayApi = axios.create({
 	baseURL,
+	headers: {'X-Requested-With', 'XMLHttpRequest', 'origin'},
+	withCredentials: false,
 });
 
 export const endingParameters = url;
