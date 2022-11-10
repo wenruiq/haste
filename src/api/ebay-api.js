@@ -3,7 +3,7 @@ import axios from 'axios';
 //* Base: Find Items By Keywords 
 //* New meta cors anywhere (nov 2022)
 let baseURL =
-	'https://thingproxy.freeboard.io/fetch/https://svcs.ebay.com/services/search/FindingService';
+	'https://safe-everglades-24275.herokuapp.com/https://svcs.ebay.com/services/search/FindingService';
 	// 'https://cors-anywhere.herokuapp.com/https://svcs.ebay.com/services/search/FindingService';
 
 const appKey = 'LifuHuan-haste-PRD-25007f986-39451291';
