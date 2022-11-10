@@ -21,26 +21,6 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 import { fetchSavedStartAsync, setSaved } from './redux/saved/saved.actions';
 import { selectSuggestConsent } from './redux/suggest/suggest.selectors';
 
-//* Added to enable cors-anywhere when new user visits the demo
-(() => {
-	let cors_api_host = 'cors-anywhere.herokuapp.com';
-	let cors_api_url = 'https://' + cors_api_host + '/';
-	let slice = [].slice;
-	let origin = window.location.protocol + '//' + window.location.host;
-	let open = XMLHttpRequest.prototype.open;
-	XMLHttpRequest.prototype.open = function() {
-			let args = slice.call(arguments);
-			/*eslint-disable no-useless-escape*/
-			let targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
-			/*eslint-enable */
-			if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
-					targetOrigin[1] !== cors_api_host) {
-					args[1] = cors_api_url + args[1];
-			}
-			return open.apply(this, args);
-	};
-})();
-
 // *Class based component
 class App extends React.Component {
 	unsubscribeFromAuth = null;
