@@ -8,7 +8,8 @@
   </br>
   <a href="https://admiring-noether-c3bf69.netlify.app"><strong>View Demo »</strong></a>
   </br>
-  <b>**Now only provide search results from eBay and Best Buy as we have exceeded the free tier limits for some APIs**</b>
+  <b>**Search results only come from eBay and Best Buy now, as we have exceeded the free tier limits for some APIs**</b>
+  </br>
   </br>
   Scroll down to the "Key Features" section for the pre-recorded alternate demos
   </br>
