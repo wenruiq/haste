@@ -6,7 +6,7 @@
   Search for the best products across multiple e-commerce platforms on this one-stop web app built with ReactJS, Redux, Sass & Firebase
   </br>
   </br>
-  <a href="https://haste-shopping.netlify.app"><strong>View Demo »</strong></a>
+  <a href="https://admiring-noether-c3bf69.netlify.app/"><strong>View Demo »</strong></a>
   </br>
   <b>**Search results only come from eBay and Best Buy now, as we have exceeded the free tier limits for some APIs**</b>
   </br>
