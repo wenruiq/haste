@@ -67,9 +67,10 @@ This is a joint project co-developed by [Lifu](https://github.com/lifuhuang97) a
 <img src="http://g.recordit.co/atabWkhXYT.gif" width="800px" />
 
 ### Save and remove products
-<img src="http://g.recordit.co/El60SllzSH.gif" width="800px" />
+<img src="http://g.recordit.co/7gczdkZHJO.gif" width="800px" />
 
 ### Find similar products
+<img src="http://g.recordit.co/HFR9U14MZ9.gif" width="800px" />
 
 
 ## Getting Started
