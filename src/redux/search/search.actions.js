@@ -245,81 +245,34 @@ export const fetchRecommendedFailure = (errorMessage) => ({
 	payload: errorMessage,
 });
 
-// //* Allow 4 query values based on cookie
-// //TODO: Change query to an array of keywords and use limit to forEach get query
-// export const fetchRecommendedStartAsync = (
-// 	query1 = 'ultraboost',
-// 	query2 = 'napkin',
-// 	query3 = 'dvd',
-// 	query4 = 'zenbook'
-// ) => {
-// 	return async (dispatch) => {
-// 		//* Indicate to state that fetch for recommendation has started
-// 		dispatch(fetchRecommendedStart());
-
-// 		//* Multiple queries
-// 		axios
-// 			.all([
-// 				//TODO: Change to user's cookie's categories
-// 				await GetFromEbayApi.get(
-// 					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query1}`
-// 				),
-// 				await GetFromEbayApi.get(
-// 					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query2}`
-// 				),
-// 				await GetFromEbayApi.get(
-// 					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query3}`
-// 				),
-// 				await GetFromEbayApi.get(
-// 					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query4}`
-// 				),
-// 			])
-// 			.then(
-// 				axios.spread((obj1, obj2, obj3, obj4) => {
-// 					let queryTerms = [query1, query2, query3, query4];
-// 					let allResults = [obj1, obj2, obj3, obj4];
-// 					let allProcessedResults = [];
-
-// 					allResults.forEach((result, index) => {
-// 						if (result.data.findItemsByKeywordsResponse) {
-// 							if (result.data.findItemsByKeywordsResponse[0].searchResult) {
-// 								if (result.data.findItemsByKeywordsResponse[0].searchResult[0].item) {
-// 									allProcessedResults.push(
-// 										convertEBayDataToOrganizedData(
-// 											result.data.findItemsByKeywordsResponse[0].searchResult[0].item[0],
-// 											queryTerms[index]
-// 										)
-// 									);
-// 								}
-// 							}
-// 						}
-// 					});
-
-// 					dispatch(fetchRecommendedSuccess(allProcessedResults));
-// 				})
-// 			)
-// 			.catch((errors) => {
-// 				dispatch(fetchRecommendedFailure(errors));
-// 			});
-// 	};
-// };
-
-//** Filler Popular Fetch since eBay api is dead */
+//* Allow 4 query values based on cookie
+//TODO: Change query to an array of keywords and use limit to forEach get query
 export const fetchRecommendedStartAsync = (
-	query1 = 'bottle',
-	query2 = 'shoe',
-	query3 = 'roll',
-	query4 = 'scarf'
+	query1 = 'ultraboost',
+	query2 = 'napkin',
+	query3 = 'dvd',
+	query4 = 'zenbook'
 ) => {
 	return async (dispatch) => {
-		dispatch(fetchPopularStart());
+		//* Indicate to state that fetch for recommendation has started
+		dispatch(fetchRecommendedStart());
 
+		//* Multiple queries
 		axios
 			.all([
-				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query1}*`),
-				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query2}*`),
-				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query3}*`),
-				GetFromBestBuyApi.get(`/products?$limit=${1}&name[$like]=*${query4}*`),
+				//TODO: Change to user's cookie's categories
+				await GetFromEbayApi.get(
+					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query1}`
+				),
+				await GetFromEbayApi.get(
+					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query2}`
+				),
+				await GetFromEbayApi.get(
+					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query3}`
+				),
+				await GetFromEbayApi.get(
+					`/${endingParameters}&sortOrder=BestMatch&paginationInput.entriesPerPage=1&keywords=${query4}`
+				),
 			])
 			.then(
 				axios.spread((obj1, obj2, obj3, obj4) => {
@@ -327,20 +280,26 @@ export const fetchRecommendedStartAsync = (
 					let allResults = [obj1, obj2, obj3, obj4];
 					let allProcessedResults = [];
 
-					//* This is bestbuy foreach
 					allResults.forEach((result, index) => {
-						if (result.data.data) {
-							allProcessedResults.push(
-								convertBestBuyDataToOrganizedData(result.data.data[0], queryTerms[index])
-							);
+						if (result.data.findItemsByKeywordsResponse) {
+							if (result.data.findItemsByKeywordsResponse[0].searchResult) {
+								if (result.data.findItemsByKeywordsResponse[0].searchResult[0].item) {
+									allProcessedResults.push(
+										convertEBayDataToOrganizedData(
+											result.data.findItemsByKeywordsResponse[0].searchResult[0].item[0],
+											queryTerms[index]
+										)
+									);
+								}
+							}
 						}
 					});
 
-					dispatch(fetchPopularSuccess(allProcessedResults));
+					dispatch(fetchRecommendedSuccess(allProcessedResults));
 				})
 			)
 			.catch((errors) => {
-				dispatch(fetchPopularFailure(errors));
+				dispatch(fetchRecommendedFailure(errors));
 			});
 	};
 };
