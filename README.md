@@ -10,8 +10,11 @@
   Search for the best products across multiple e-commerce platforms on this one-stop web app built with ReactJS, Redux, Sass & Firebase
   </br>
   </br>
+  <b>**Website live demo is no longer working as we have exceeded free tier limits for the query APIs**</b>
+  </br>
   <a href="https://admiring-noether-c3bf69.netlify.app/"><strong>View Demo »</strong></a>
   </br>
+  <b>**For the demo of features, do check out the "Key Features" section below with GIFs attached**</b>
   </br>
   </br>
   Scroll down to the "Key Features" section for the pre-recorded alternate demos
