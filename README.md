@@ -1,3 +1,7 @@
+```diff
++ Website live demo is no longer working as we have exceeded free tier limits for the query APIs
+@@ For the demo of features, do check out the "Key Features" section below with GIFs attached @@
+```
 <p align="center">
 
 <img src="https://user-images.githubusercontent.com/58852708/95030232-e9ce8980-06e0-11eb-9122-62ea14628bd7.png" width="800px"/>
@@ -8,7 +12,6 @@
   </br>
   <a href="https://admiring-noether-c3bf69.netlify.app/"><strong>View Demo »</strong></a>
   </br>
-  <b>**Search results only come from eBay and Best Buy now, as we have exceeded the free tier limits for some APIs**</b>
   </br>
   </br>
   Scroll down to the "Key Features" section for the pre-recorded alternate demos
